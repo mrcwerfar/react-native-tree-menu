@@ -77,7 +77,7 @@ class TreeMenuItem extends Component {
 								alignItems: 'center'
 							}}>
 							{/* Show menu item icon or not? */}
-							{this.props.showMenuItemIcon && menuItemObject.icon && (
+							{this.props.menuItemSettings.itemShowIcon && menuItemObject.icon && (
 								<Icon
 									style={{marginLeft: 5, marginRight: 10}}
 									color="#000"
@@ -130,7 +130,6 @@ class TreeMenuItem extends Component {
 
 TreeMenuItem.defaultProps = {
 	showDropDownButton: true,
-	showMenuItemIcon: false,
 	showSumMenu: true,
 	openSubMenu: true,
 	indents: 0,
@@ -138,7 +137,6 @@ TreeMenuItem.defaultProps = {
 
 TreeMenuItem.propTypes = {
 	showDropDownButton: PropTypes.bool,
-	showMenuItemIcon: PropTypes.bool,
 	showSumMenu: PropTypes.bool,
 	openSubMenu: PropTypes.bool,
 	indents: PropTypes.number,

@@ -81,7 +81,6 @@ class TreeMenu extends Component {
 							indents={level}
 							openSubMenu={menuItemObject.openSubMenu?menuItemObject.openSubMenu: false}
 							showDropDownButton={showDropDownButton}
-							showMenuItemIcon={menuItemObject.showIcon !== undefined ? menuItemObject.showIcon : true}
 							onOpenSubMenu={(menuItemObject) => {
 								menuItemObject.openSubMenu = !menuItemObject.openSubMenu;
 								if (menuItemObject.openSubMenu) {
@@ -137,6 +136,7 @@ TreeMenu.defaultProps = {
 		itemIconOnLeft: true,
 		itemOpenCloseIconRight: false,
 		itemTextStyle: {fontSize: 20, color:'#900FFF', textAlign: 'left'},
+		itemShowIcon: true,
 		itemIconSize: 25,
 		itemBackgroundColor: '#E0E0E0',
 		itemOpenMenuIcon: 'ios-arrow-dropleft-circle',
@@ -154,6 +154,21 @@ TreeMenu.defaultProps = {
 		itemSeparatorMarginRight: 0,
 		itemIndentValue: 20
 	},
+	menuObjects:
+		[
+			{
+				id: 'id_finger_print',
+				icon: 'ios-rocket',
+				name: 'Print',
+				subItems: [
+					{
+						id: 'id_print_1',
+						name: 'Print 1',
+						subItems: []
+					}
+				]
+			}
+		]
 };
 
 TreeMenu.propTypes = {

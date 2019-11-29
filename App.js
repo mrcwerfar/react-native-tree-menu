@@ -51,6 +51,7 @@ class App extends Component {
 			itemIconOnLeft: true,
 			itemOpenCloseIconRight: false,
 			itemTextStyle: {fontSize: 25, color:'#900FFF', textAlign: 'left'},
+			itemShowIcon: true,
 			itemIconSize: 25,
 			itemBackgroundColor: '#E0E0E0',
 			itemOpenMenuIcon: 'ios-arrow-dropleft-circle',
