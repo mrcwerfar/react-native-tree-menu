@@ -6,9 +6,28 @@ import TreeMenuItem from './TreeMenuItem';
 class TreeMenu extends Component {
 	constructor(props, context) {
 		super(props, context);
+		// Prepping;
+		this.prepMenuObjects(this.props.menuObjects);
+
 		this.state = {
 			reRender: false,
 		};
+	}
+
+	// Set parent of all menuObjects:
+	prepMenuObjects(menuObjects) {
+		for (let i = 0; i < menuObjects.length; i++) {
+			this.setSubItemParent(menuObjects[i], undefined);
+		}
+	}
+
+	setSubItemParent(menuObject, parent) {
+		menuObject['parent'] = parent;
+		if (menuObject.subItems) {
+			for (let i = 0; i < menuObject.subItems.length; i++) {
+				this.setSubItemParent(menuObject.subItems[i], menuObject);
+			}
+		}
 	}
 
 	renderSeparator() {
@@ -46,7 +65,7 @@ class TreeMenu extends Component {
 						if (menuItemObject.id) {
 							console.log(menuItemObject.id);
 						}
-						this.props.menuItemSettings.clickHandler(menuItemObject);
+						this.props.menuItemSettings.itemClickHandler(menuItemObject);
 					};
 				}
 
@@ -60,18 +79,35 @@ class TreeMenu extends Component {
 							menuItemObject={menuItemObject}
 							menuItemSettings={this.props.menuItemSettings}
 							indents={level}
-							openSubMenu={false}
+							openSubMenu={menuItemObject.openSubMenu?menuItemObject.openSubMenu: false}
 							showDropDownButton={showDropDownButton}
 							showMenuItemIcon={menuItemObject.showIcon !== undefined ? menuItemObject.showIcon : true}
-							onOpenSubMenu={menuItemObject => {
+							onOpenSubMenu={(menuItemObject) => {
 								menuItemObject.openSubMenu = !menuItemObject.openSubMenu;
+								if (menuItemObject.openSubMenu) {
+									// Close others:
+									if (this.props.menuItemSettings.closeOthersOnOpen) {
+										let itemsToCompress=this.props.menuObjects;
+										// Get menuItemObjects parents subItems. If not exist, then use this.props.menuObjects:
+										let menuItemObjectParent = menuItemObject.parent;
+										if (menuItemObjectParent)
+											itemsToCompress = menuItemObjectParent.subItems?menuItemObjectParent.subItems:[];
+										for (let i = 0; i < itemsToCompress.length; i++) {
+											let moItem = itemsToCompress[i];
+											if (moItem !== menuItemObject)
+												moItem.openSubMenu = false;
+											else
+												moItem.openSubMenu = true;
+										}
+									}
+								}
 								this.setState({
 									reRender: !this.state.reRender,
 								});
 							}}
 						/>
 						{
-							this.props.menuItemSettings.drawItemSeparator && this.renderSeparator()
+							this.props.menuItemSettings.itemSeparator && this.renderSeparator()
 						}
 					</View>,
 				);
@@ -95,13 +131,17 @@ class TreeMenu extends Component {
 
 TreeMenu.defaultProps = {
 	menuItemSettings: {
-		textColor: '#900FFF',
-		textSize: 20,
-		iconSize: 25,
-		backgroundColor: '#E0E0E0',
-		openMenuIcon: 'ios-arrow-dropleft-circle',
-		closeMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
-		drawItemSeparator: true,
+
+		closeOthersOnOpen: false,
+
+		itemIconOnLeft: true,
+		itemOpenCloseIconRight: false,
+		itemTextStyle: {fontSize: 20, color:'#900FFF', textAlign: 'left'},
+		itemIconSize: 25,
+		itemBackgroundColor: '#E0E0E0',
+		itemOpenMenuIcon: 'ios-arrow-dropleft-circle',
+		itemCloseMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
+		itemSeparator: true,
 		itemBorderRadius: 5,
 		itemMarginTop: 0,
 		itemMarginBottom: 0,

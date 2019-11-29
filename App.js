@@ -42,16 +42,20 @@ class App extends Component {
 
 	render() {
 		let menuItemSettings = {
-			clickHandler: item => {
+			itemClickHandler: item => {
 				this.onMenuItemClick(item);
 			},
-			textColor: '#900FFF',
-			textSize: 20,
-			iconSize: 25,
-			backgroundColor: '#E0E0E0',
-			openMenuIcon: 'ios-arrow-dropleft-circle',
-			closeMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
-			drawItemSeparator: true,
+
+			closeOthersOnOpen: true,
+
+			itemIconOnLeft: true,
+			itemOpenCloseIconRight: false,
+			itemTextStyle: {fontSize: 25, color:'#900FFF', textAlign: 'left'},
+			itemIconSize: 25,
+			itemBackgroundColor: '#E0E0E0',
+			itemOpenMenuIcon: 'ios-arrow-dropleft-circle',
+			itemCloseMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
+			itemSeparator: true,
 			itemBorderRadius: 3,
 			itemMarginTop: 0,
 			itemMarginBottom: 0,
@@ -76,10 +80,6 @@ class App extends Component {
 							MIN MENY
 						</Text>
 						<TreeMenu
-							style={{
-								marginLeft: 0,
-								marginRight: 0,
-							}}
 							menuItemSettings={menuItemSettings}
 							menuObjects={menuData} />
 					</ScrollView>

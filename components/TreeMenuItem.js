@@ -16,14 +16,14 @@ class TreeMenuItem extends Component {
 		}
 
 		this.dropDownIconName = [];
-		if (this.props.menuItemSettings.closeMenuIcon) {
-			this.dropDownIconName.push(this.props.menuItemSettings.openMenuIcon);
+		if (this.props.menuItemSettings.itemCloseMenuIcon) {
+			this.dropDownIconName.push(this.props.menuItemSettings.itemOpenMenuIcon);
 		} else {
 			this.dropDownIconName.push('ios-arrow-dropleft-circle');
 		}
 
-		if (this.props.menuItemSettings.openMenuIcon) {
-			this.dropDownIconName.push(this.props.menuItemSettings.closeMenuIcon);
+		if (this.props.menuItemSettings.itemOpenMenuIcon) {
+			this.dropDownIconName.push(this.props.menuItemSettings.itemCloseMenuIcon);
 		} else {
 			this.dropDownIconName.push('ios-arrow-dropdown-circle');
 		}
@@ -54,7 +54,7 @@ class TreeMenuItem extends Component {
 			<View style={{flex: 1}}>
 				<View
 					style={{
-						backgroundColor: this.props.menuItemSettings.backgroundColor,
+						backgroundColor: this.props.menuItemSettings.itemBackgroundColor,
 						marginBottom: this.props.menuItemSettings.itemMarginBottom,
 						marginTop: this.props.menuItemSettings.itemMarginTop,
 						marginLeft: this.props.menuItemSettings.itemMarginLeft + this.props.menuItemSettings.itemIndentValue * Number(this.indents),
@@ -82,22 +82,15 @@ class TreeMenuItem extends Component {
 									style={{marginLeft: 5, marginRight: 10}}
 									color="#000"
 									name={menuItemObject.icon}
-									size={this.props.menuItemSettings.iconSize?this.props.menuItemSettings.iconSize:35}
+									size={this.props.menuItemSettings.itemIconSize?this.props.menuItemSettings.itemIconSize:35}
 								/>
 							)}
 
 							<Text
-								style={{
-									color: this.props.menuItemSettings.textColor?this.props.menuItemSettings.textColor:'#000000',
-									fontSize: this.props.menuItemSettings.textSize?this.props.menuItemSettings.textSize: 22,
-									textAlign: 'left',
+								style={[this.props.menuItemSettings.itemTextStyle, {
 									flex: 1,
-									flexDirection: 'row',
-									marginLeft: 0,
-									marginRight: 0,
-									marginTop: 0,
-									marginBottom: 0,
-								}}
+									flexDirection: 'row'
+								}]}
 								allowFontScaling={true}>
 								{menuItemObject.name}
 							</Text>
@@ -114,7 +107,7 @@ class TreeMenuItem extends Component {
 										style={{marginRight: 5}}
 										color="#000"
 										name={this.dropDownIconName[iconIndex]}
-										size={this.props.menuItemSettings.iconSize?this.props.menuItemSettings.iconSize:35}
+										size={this.props.menuItemSettings.itemIconSize?this.props.menuItemSettings.itemIconSize:35}
 									/>
 								</TouchableHighlight>
 							)}
