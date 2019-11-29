@@ -7,19 +7,19 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
 	StyleSheet,
 	ScrollView,
 	View,
+	Text,
 	StatusBar,
-	SafeAreaView
+	SafeAreaView,
 } from 'react-native';
 
-import {
-	Colors,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 import TreeMenu from './components/TreeMenu';
+import menuData from './mymenu.json'; // The menu structure ...
 
 class App extends Component {
 	constructor(props, context) {
@@ -27,108 +27,43 @@ class App extends Component {
 	}
 
 	onMenuItemClick(menuItem) {
-		console.log(menuItem.id);
-
 		switch (menuItem.id) {
 		case 'id_analytics':
+			console.log(menuItem.name);
 			break;
 		case 'id_color_scheme':
+			console.log(menuItem.name);
 			break;
 		case 'id_finger_print':
+			console.log(menuItem.name);
 			break;
 		}
 	}
 
 	render() {
-		let menuSettings = {
-			menuItemClickHandler: (item)=>{this.onMenuItemClick(item);},
-			textColor: '#00FF00',
-			menuItemBackColor: '#E0E0E0',
+		let menuItemSettings = {
+			clickHandler: item => {
+				this.onMenuItemClick(item);
+			},
+			textColor: '#900FFF',
+			textSize: 20,
+			iconSize: 25,
+			backgroundColor: '#E0E0E0',
 			openMenuIcon: 'ios-arrow-dropleft-circle',
-			closeMenuIcon: 'ios-arrow-dropdown-circle',
+			closeMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
+			drawItemSeparator: true,
+			itemBorderRadius: 3,
+			itemMarginTop: 0,
+			itemMarginBottom: 0,
+			itemMarginLeft: 4,
+			itemMarginRight: 4,
+			itemSeparatorColor: '#909090',
+			itemSeparatorMarginTop: 1,
+			itemSeparatorMarginBottom: 1,
+			itemSeparatorMarginLeft: 4,
+			itemSeparatorMarginRight: 4,
+			itemIndentValue: 20
 		};
-
-		const menuItems = [
-			{
-				id: 'id_analytics',
-				icon: 'md-analytics',
-				name: 'Analytics',
-				subItems:[
-					{
-						id: 'id_analytics_rename',
-						icon: 'md-color-wand',
-						name: 'Rename',
-						subItems:[]
-					},
-					{
-						id: 'id_analytics_copy',
-						icon: 'md-airplane',
-						name:'Copy',
-						subItems:[]
-					},{
-						id: 'id_analytics_delete',
-						icon: 'ios-trash',
-						name: 'Delete',
-						subItems:[
-							{
-								id: 'id_analytics_delete_1',
-								name: 'No 1',
-								subItems:[]
-							},
-							{
-								id: 'id_analytics_delete_2',
-								name:'No 2',
-								subItems:[]
-							},{
-								id: 'id_analytics_delete_3',
-								name: 'No 3',
-								subItems:[]
-							}
-						]
-					}
-				]
-			},
-			{
-				id: 'id_color_scheme',
-				icon: 'ios-brush',
-				name: 'Color scheme',
-				subItems:[
-					{
-						id: 'id_color_scheme_edit1',
-						name: 'Edit 1',
-						showIcon: false,
-						subItems:[]
-					},
-					{
-						id: 'id_color_scheme_edit2',
-						name:'Edit  2',
-						showIcon: true,
-						subItems:[]
-					}
-				]
-			},
-			{
-				id: 'id_finger_print',
-				icon: 'ios-finger-print',
-				name: 'Authenticate',
-				subItems:[
-					{
-						id: 'id_finger_print_set1',
-						name: 'Settings 1',
-						subItems:[]
-					},
-					{
-						id: 'id_finger_print_set2',
-						name:'Settings  2',
-						subItems:[]
-					},{
-						id: 'id_finger_print_set3',
-						name: 'Settings  3',
-						subItems:[]
-					}
-				]
-			}
-		];
 
 		return (
 			<View style={{flex: 1}}>
@@ -137,11 +72,16 @@ class App extends Component {
 					<ScrollView
 						contentInsetAdjustmentBehavior="automatic"
 						style={styles.scrollView}>
-
+						<Text style={{fontSize: 30, textAlign: 'center', margin: 10}}>
+							MIN MENY
+						</Text>
 						<TreeMenu
-							menuSettings={menuSettings}
-							menuObjects={menuItems}>
-						</TreeMenu>
+							style={{
+								marginLeft: 0,
+								marginRight: 0,
+							}}
+							menuItemSettings={menuItemSettings}
+							menuObjects={menuData} />
 					</ScrollView>
 				</SafeAreaView>
 			</View>

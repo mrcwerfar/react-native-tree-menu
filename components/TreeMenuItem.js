@@ -7,103 +7,118 @@ import Icon from 'react-native-vector-icons/Ionicons';
  *
  */
 class TreeMenuItem extends Component {
-
 	constructor(props, context) {
 		super(props, context);
-		if (this.props.indents)
+		if (this.props.indents) {
 			this.indents = this.props.indents;
-		else
+		} else {
 			this.indents = 0;
+		}
 
 		this.dropDownIconName = [];
-		if (this.props.closeMenuIcon)
-			this.dropDownIconName.push(this.props.openMenuIcon);
-		else
-			this.dropDownIconName.push('ios-arrow-dropleft-circle'); //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
+		if (this.props.menuItemSettings.closeMenuIcon) {
+			this.dropDownIconName.push(this.props.menuItemSettings.openMenuIcon);
+		} else {
+			this.dropDownIconName.push('ios-arrow-dropleft-circle');
+		}
 
-		if (this.props.openMenuIcon)
-			this.dropDownIconName.push(this.props.closeMenuIcon);
-		else
+		if (this.props.menuItemSettings.openMenuIcon) {
+			this.dropDownIconName.push(this.props.menuItemSettings.closeMenuIcon);
+		} else {
 			this.dropDownIconName.push('ios-arrow-dropdown-circle');
+		}
 
 		if (this.props.openSubMenu !== undefined) {
 			if (!this.props.openSubMenu) {
 				this.state = {
 					dropDownIconNameIndex: 0,
-					openSubMenu: false
+					openSubMenu: false,
 				};
 			} else {
 				this.state = {
 					dropDownIconNameIndex: 1,
-					openSubMenu: true
+					openSubMenu: true,
 				};
 			}
 		} else {
 			this.state = {
 				dropDownIconNameIndex: 0,
-				openSubMenu: false
+				openSubMenu: false,
 			};
 		}
 	}
 
-	renderItem(menuObject) {
-		let iconIndex = menuObject.openSubMenu===true?1:0;
+	renderItem(menuItemObject) {
+		let iconIndex = menuItemObject.openSubMenu === true ? 1 : 0;
 		return (
-			<View style={{flex:1}}>
+			<View style={{flex: 1}}>
 				<View
 					style={{
-						backgroundColor: '#EDEDED',
-						marginBottom: 2,
-						marginTop: 0,
-						marginLeft: 10 + 20 * Number(this.indents),
-						marginRight: 10,
-						borderRadius: 10
+						backgroundColor: this.props.menuItemSettings.backgroundColor,
+						marginBottom: this.props.menuItemSettings.itemMarginBottom,
+						marginTop: this.props.menuItemSettings.itemMarginTop,
+						marginLeft: this.props.menuItemSettings.itemMarginLeft + this.props.menuItemSettings.itemIndentValue * Number(this.indents),
+						marginRight: this.props.menuItemSettings.itemMarginRight,
+						borderRadius: this.props.menuItemSettings.itemBorderRadius,
 					}}>
-
 					<TouchableHighlight
-						value={menuObject.id}
-						underlayColor='#00000000'
-						onPress = {
-							() => {
-								if (menuObject.onClick !== undefined) {
-									menuObject.onClick(menuObject);
-								}
+						value={menuItemObject.id}
+						underlayColor="#00000000"
+						onPress={() => {
+							if (menuItemObject.onClick !== undefined) {
+								menuItemObject.onClick(menuItemObject);
 							}
-						}>
-						<View style={{
-							padding: 0,
-							flexDirection: 'row',
-							flex:1
 						}}>
+						<View
+							style={{
+								padding: 0,
+								flexDirection: 'row',
+								flex: 1,
+								alignItems: 'center'
+							}}>
 							{/* Show menu item icon or not? */}
-							{this.props.showMenuItemIcon && menuObject.icon && (
+							{this.props.showMenuItemIcon && menuItemObject.icon && (
 								<Icon
-									style={{marginLeft: 5, marginRight:10}}
+									style={{marginLeft: 5, marginRight: 10}}
 									color="#000"
-									name={menuObject.icon}
-									size={35}/>
-
+									name={menuItemObject.icon}
+									size={this.props.menuItemSettings.iconSize?this.props.menuItemSettings.iconSize:35}
+								/>
 							)}
-							<View style={{flex: 1, flexDirection: 'column', marginLeft: 3, marginRight: 3, marginTop: 10, marginBottom: 0, textAlign: 'center' }}>
-								<Text
-									style={{color: '#900FFF', fontSize: 22, textAlign: 'left'}}
-									allowFontScaling={false}>
-									{menuObject.name}
-								</Text>
-							</View>
+
+							<Text
+								style={{
+									color: this.props.menuItemSettings.textColor?this.props.menuItemSettings.textColor:'#000000',
+									fontSize: this.props.menuItemSettings.textSize?this.props.menuItemSettings.textSize: 22,
+									textAlign: 'left',
+									flex: 1,
+									flexDirection: 'row',
+									marginLeft: 0,
+									marginRight: 0,
+									marginTop: 0,
+									marginBottom: 0,
+								}}
+								allowFontScaling={true}>
+								{menuItemObject.name}
+							</Text>
 
 							{/* Show dropdown button or not? */}
-							{ this.props.showDropDownButton && (
-								<TouchableHighlight onPress={() => {this.props.onOpenSubMenu(menuObject);}} activeOpacity={0.5} underlayColor='#00000000'>
+							{this.props.showDropDownButton && (
+								<TouchableHighlight
+									onPress={() => {
+										this.props.onOpenSubMenu(menuItemObject);
+									}}
+									activeOpacity={0.5}
+									underlayColor="#00000000">
 									<Icon
-										style={{marginRight: 10}}
+										style={{marginRight: 5}}
 										color="#000"
 										name={this.dropDownIconName[iconIndex]}
-										size={35}/>
+										size={this.props.menuItemSettings.iconSize?this.props.menuItemSettings.iconSize:35}
+									/>
 								</TouchableHighlight>
 							)}
 						</View>
-
 					</TouchableHighlight>
 				</View>
 			</View>
@@ -111,33 +126,34 @@ class TreeMenuItem extends Component {
 	}
 
 	render() {
-		let menuObject = this.props.menuObject;
-		if (menuObject)
-			return this.renderItem(menuObject);
-		else
-			return (<View/>);
+		let menuItemObject = this.props.menuItemObject;
+		if (menuItemObject) {
+			return this.renderItem(menuItemObject);
+		} else {
+			return <View/>;
+		}
 	}
 }
 
 TreeMenuItem.defaultProps = {
-	roundImage: false,
-	roundImageBackColor: '#E5FF89',
-	openSubMenu: false,
+	showDropDownButton: true,
 	showMenuItemIcon: false,
-	indents: 0
+	showSumMenu: true,
+	openSubMenu: true,
+	indents: 0,
 };
 
 TreeMenuItem.propTypes = {
-	onOpenSubMenu: PropTypes.func,
 	showDropDownButton: PropTypes.bool,
 	showMenuItemIcon: PropTypes.bool,
-	menuObject: PropTypes.object.isRequired,
-	marginLeft: PropTypes.number,
-	marginRight: PropTypes.number,
-	titleColor: PropTypes.string,
 	showSumMenu: PropTypes.bool,
-	roundImage: PropTypes.bool,
-	roundImageBackColor: PropTypes.string
+	openSubMenu: PropTypes.bool,
+	indents: PropTypes.number,
+
+	menuItemObject: PropTypes.object.isRequired,
+	menuItemSettings: PropTypes.object.isRequired,
+
+	onOpenSubMenu: PropTypes.func,
 };
 
 export default TreeMenuItem;

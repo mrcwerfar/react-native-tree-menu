@@ -1,107 +1,124 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {View} from 'react-native';
 import PropTypes from 'prop-types';
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import TreeMenuItem from './TreeMenuItem';
 
 class TreeMenu extends Component {
-
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			reRender: false
+			reRender: false,
 		};
-
-		if (this.props.menuObjects)
-			this.menuObjects = this.props.menuObjects;
-		else
-			this.menuObjects = [];
-
-		if (this.props.menuSettings)
-			this.menuSettings = this.props.menuSettings;
-		else
-			this.menuSettings = {
-				menuItemClickHandler: (item)=>{this.props.onMenuItemClick(item);},
-				textColor: '#00FF00',
-				menuItemBackColor: '#E0E0E0',
-				openMenuIcon: 'ios-arrow-dropleft-circle',
-				closeMenuIcon: 'ios-arrow-dropdown-circle',
-			};
 	}
 
-	static renderSeparator() {
-		return(
+	renderSeparator() {
+		return (
 			<View
 				style={{
-					borderBottomColor: '#EEEEEE',
+					borderBottomColor: this.props.menuItemSettings.itemSeparatorColor,
 					borderBottomWidth: 1,
-					marginTop: 1,
-					marginBottom: 1,
-					marginLeft: 5,
-					marginRight: 5,
+					marginTop: this.props.menuItemSettings.itemSeparatorMarginTop,
+					marginBottom: this.props.menuItemSettings.itemSeparatorMarginBottom,
+					marginLeft: this.props.menuItemSettings.itemSeparatorMarginLeft,
+					marginRight: this.props.menuItemSettings.itemSeparatorMarginRight,
 				}}
 			/>
 		);
 	}
 
 	renderMenu(level, menuObjects) {
-		let returnValue=[];
-		if (menuObjects !== undefined && menuObjects.length>0) {
+		let returnValue = [];
+		if (menuObjects !== undefined && menuObjects.length > 0) {
 			for (let i = 0; i < menuObjects.length; i++) {
-				let menuObject = menuObjects[i];
-				if (menuObject['openSubMenu'] === undefined)
-					menuObject['openSubMenu'] = false;
+				let menuItemObject = menuObjects[i];
+				if (menuItemObject.openSubMenu === undefined) {
+					menuItemObject.openSubMenu = false;
+				}
 
-				let subItems = menuObject.subItems;
-				let showDropDownButton=false;
-				if (subItems && subItems.length > 0)
+				let subItems = menuItemObject.subItems;
+				let showDropDownButton = false;
+				if (subItems && subItems.length > 0) {
 					showDropDownButton = true;
+				}
 
-				if (menuObject['onClick'] === undefined)
-					menuObject['onClick'] = () => {this.menuSettings.menuItemClickHandler(menuObject);};
+				if (!menuItemObject.onClick) {
+					menuItemObject.onClick = () => {
+						if (menuItemObject.id) {
+							console.log(menuItemObject.id);
+						}
+						this.props.menuItemSettings.clickHandler(menuItemObject);
+					};
+				}
 
+				// TODO: gi unik verdi på key.
 				returnValue.push(
-					<View key={level*10 + i}>
-						<TreeMenuItem
-							menuObject={menuObject}
-							indents={level}
-							icon={menuObject.icon}
-							openSubMenu={false}
-							showMenuItemIcon={menuObject.showIcon!==undefined?menuObject.showIcon:true}
-							showDropDownButton={showDropDownButton}
-							openMenuIcon={this.menuSettings.openMenuIcon}
-							closeMenuIcon={this.menuSettings.closeMenuIcon}
-							onOpenSubMenu={
-								(menuObject)=>{
-									menuObject.openSubMenu = !menuObject.openSubMenu;
-									this.setState(
-										{
-											reRender: !this.state.reRender,
-										}
-									);
-								}
-							}/>
+					<View
+						key={level * 10 + i}
+						style = {this.props.style}>
 
-						{TreeMenu.renderSeparator()}
-					</View>
+						<TreeMenuItem
+							menuItemObject={menuItemObject}
+							menuItemSettings={this.props.menuItemSettings}
+							indents={level}
+							openSubMenu={false}
+							showDropDownButton={showDropDownButton}
+							showMenuItemIcon={menuItemObject.showIcon !== undefined ? menuItemObject.showIcon : true}
+							onOpenSubMenu={menuItemObject => {
+								menuItemObject.openSubMenu = !menuItemObject.openSubMenu;
+								this.setState({
+									reRender: !this.state.reRender,
+								});
+							}}
+						/>
+						{
+							this.props.menuItemSettings.drawItemSeparator && this.renderSeparator()
+						}
+					</View>,
 				);
-				if (menuObject.openSubMenu === true) {
-					if (subItems && subItems.length > 0)
+				if (menuItemObject.openSubMenu === true) {
+					if (subItems && subItems.length > 0) {
 						returnValue.push(this.renderMenu(level + 1, subItems));
+					}
 				}
 			}
 		}
-		if (returnValue.length===0)
+		if (returnValue.length === 0) {
 			returnValue.push(<View/>);
+		}
 		return returnValue;
 	}
 
 	render() {
-		return (
-			<View>
-				{this.renderMenu(0, this.menuObjects)}
-			</View>
-		);
+		return <View>{this.renderMenu(0, this.props.menuObjects)}</View>;
 	}
 }
+
+TreeMenu.defaultProps = {
+	menuItemSettings: {
+		textColor: '#900FFF',
+		textSize: 20,
+		iconSize: 25,
+		backgroundColor: '#E0E0E0',
+		openMenuIcon: 'ios-arrow-dropleft-circle',
+		closeMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
+		drawItemSeparator: true,
+		itemBorderRadius: 5,
+		itemMarginTop: 0,
+		itemMarginBottom: 0,
+		itemMarginLeft: 0,
+		itemMarginRight: 0,
+		itemSeparatorColor: '#909090',
+		itemSeparatorMarginTop: 1,
+		itemSeparatorMarginBottom: 1,
+		itemSeparatorMarginLeft: 0,
+		itemSeparatorMarginRight: 0,
+		itemIndentValue: 20
+	},
+};
+
+TreeMenu.propTypes = {
+	menuObjects: PropTypes.array.isRequired,
+	menuItemSettings: PropTypes.object.isRequired,
+};
 
 export default TreeMenu;
