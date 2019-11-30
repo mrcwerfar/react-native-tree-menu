@@ -46,13 +46,14 @@ class App extends Component {
 				this.onMenuItemClick(item);
 			},
 
+			vectorIconsFamily: 'Ionicons',
 			closeOthersOnOpen: true,
 
 			itemIconOnLeft: true,
 			itemOpenCloseIconRight: false,
 			itemTextStyle: {
-				fontSize: 25,
-				color:'#900FFF',
+				fontSize: 18,
+				color:'#000000',
 				textAlign: 'left'
 			},
 			itemStyle: {
@@ -68,7 +69,7 @@ class App extends Component {
 			itemOpenMenuIcon: 'ios-arrow-dropleft-circle',
 			itemCloseMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
 			itemSeparator: true,
-			itemSeparatorColor: '#FFFFFF',
+			itemSeparatorColor: '#A0A0A0',
 			itemSeparatorMarginTop: 1,
 			itemSeparatorMarginBottom: 1,
 			itemSeparatorMarginLeft: 4,
@@ -87,7 +88,7 @@ class App extends Component {
 							MIN MENY
 						</Text>
 						<TreeMenu
-							style={{backgroundColor: '#000000'}}
+							style={{backgroundColor: '#00000000'}}
 							menuItemSettings={menuItemSettings}
 							menuObjects={menuData} />
 					</ScrollView>

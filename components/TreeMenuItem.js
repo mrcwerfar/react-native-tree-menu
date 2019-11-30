@@ -1,7 +1,18 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {TouchableHighlight, View, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import IconIO from 'react-native-vector-icons/Ionicons';
+import IconAD from 'react-native-vector-icons/AntDesign';
+import IconEI from 'react-native-vector-icons/EvilIcons';
+import IconFE from 'react-native-vector-icons/Feather';
+import IconFA from 'react-native-vector-icons/FontAwesome';
+import IconFI from 'react-native-vector-icons/Fontisto';
+import IconFO from 'react-native-vector-icons/Foundation';
+import IconMA from 'react-native-vector-icons/MaterialIcons';
+import IconMCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconOC from 'react-native-vector-icons/Octicons';
+import IconZO from 'react-native-vector-icons/Zocial';
+import IconSLI from 'react-native-vector-icons/SimpleLineIcons';
 
 /**
  *
@@ -48,6 +59,28 @@ class TreeMenuItem extends Component {
 		}
 	}
 
+	selectIconFamily(icon) {
+		let style = {marginLeft: 5, marginRight: 10};
+		let size = this.props.menuItemSettings.itemIconSize ? this.props.menuItemSettings.itemIconSize : 35;
+		let color = '#000';
+
+		if (!this.props.menuItemSettings.vectorIconsFamily)
+			return ( <IconIO style={style} color={color} name={icon} size={size}/> );
+
+		switch (this.props.menuItemSettings.vectorIconsFamily) {
+		case 'Ionicons': return ( <IconIO style={style} color={color} name={icon} size={size}/> );
+		case 'AntDesign': return ( <IconAD style={style} color={color} name={icon} size={size}/> );
+		case 'EvilIcons': return ( <IconEI style={style} color={color} name={icon} size={size}/> );
+		case 'Feather': return ( <IconFE style={style} color={color} name={icon} size={size}/> );
+		case 'FontAwesome': return ( <IconFA style={style} color={color} name={icon} size={size}/> );
+		case 'Fontisto': return ( <IconFI style={style} color={color} name={icon} size={size}/> );
+		default: return ( <IconIO style={style} color={color} name={icon} size={size}/> );
+		}
+
+
+
+	}
+
 	renderItem(menuItemObject) {
 		let iconIndex = menuItemObject.openSubMenu === true ? 1 : 0;
 		return (
@@ -72,14 +105,9 @@ class TreeMenuItem extends Component {
 								flex: 1,
 								alignItems: 'center'
 							}}>
-							{/* Show menu item icon or not? */}
+							{/* Show menu item IconIO or not? */}
 							{this.props.menuItemSettings.itemShowIcon && menuItemObject.icon && (
-								<Icon
-									style={{marginLeft: 5, marginRight: 10}}
-									color="#000"
-									name={menuItemObject.icon}
-									size={this.props.menuItemSettings.itemIconSize?this.props.menuItemSettings.itemIconSize:35}
-								/>
+								this.selectIconFamily(menuItemObject.icon)
 							)}
 
 							<Text
@@ -99,12 +127,9 @@ class TreeMenuItem extends Component {
 									}}
 									activeOpacity={0.5}
 									underlayColor="#00000000">
-									<Icon
-										style={{marginRight: 5}}
-										color="#000"
-										name={this.dropDownIconName[iconIndex]}
-										size={this.props.menuItemSettings.itemIconSize?this.props.menuItemSettings.itemIconSize:35}
-									/>
+									{
+										this.selectIconFamily(this.dropDownIconName[iconIndex])
+									}
 								</TouchableHighlight>
 							)}
 						</View>
