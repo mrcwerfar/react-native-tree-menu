@@ -19,7 +19,7 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import TreeMenu from './components/TreeMenu';
-import menuData from './mymenu.json'; // The menu structure ...
+import menuData from './mymaterialmenu.json'; // The menu structure ...
 
 class App extends Component {
 	constructor(props, context) {
@@ -46,7 +46,7 @@ class App extends Component {
 				this.onMenuItemClick(item);
 			},
 
-			vectorIconsFamily: 'Ionicons',
+			vectorIconsFamily: 'MaterialCommunityIcons',
 			closeOthersOnOpen: true,
 
 			itemIconOnLeft: true,
@@ -63,11 +63,14 @@ class App extends Component {
 				marginLeft: 10,
 				marginRight: 4,
 				borderRadius: 4,
+				height: 50
 			},
 			itemShowIcon: true,
 			itemIconSize: 25,
-			itemOpenMenuIcon: 'ios-arrow-dropleft-circle',
-			itemCloseMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
+			itemOpenMenuIcon: 'arrow-left-bold-outline',
+			itemCloseMenuIcon: 'arrow-down-bold-outline',
+			//itemOpenMenuIcon: 'ios-arrow-dropleft-circle',
+			//itemCloseMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
 			itemSeparator: true,
 			itemSeparatorColor: '#A0A0A0',
 			itemSeparatorMarginTop: 1,
@@ -85,7 +88,7 @@ class App extends Component {
 						contentInsetAdjustmentBehavior="automatic"
 						style={styles.scrollView}>
 						<Text style={{fontSize: 30, textAlign: 'center', margin: 10}}>
-							MIN MENY
+							My Screen Menu
 						</Text>
 						<TreeMenu
 							style={{backgroundColor: '#00000000'}}

@@ -74,6 +74,12 @@ class TreeMenuItem extends Component {
 		case 'Feather': return ( <IconFE style={style} color={color} name={icon} size={size}/> );
 		case 'FontAwesome': return ( <IconFA style={style} color={color} name={icon} size={size}/> );
 		case 'Fontisto': return ( <IconFI style={style} color={color} name={icon} size={size}/> );
+		case 'Foundation': return ( <IconFO style={style} color={color} name={icon} size={size}/> );
+		case 'MaterialIcons': return ( <IconMA style={style} color={color} name={icon} size={size}/> );
+		case 'MaterialCommunityIcons': return ( <IconMCI style={style} color={color} name={icon} size={size}/> );
+		case 'Octicons': return ( <IconOC style={style} color={color} name={icon} size={size}/> );
+		case 'Zocial': return ( <IconZO style={style} color={color} name={icon} size={size}/> );
+		case 'SimpleLineIcons': return ( <IconSLI style={style} color={color} name={icon} size={size}/> );
 		default: return ( <IconIO style={style} color={color} name={icon} size={size}/> );
 		}
 
@@ -84,57 +90,55 @@ class TreeMenuItem extends Component {
 	renderItem(menuItemObject) {
 		let iconIndex = menuItemObject.openSubMenu === true ? 1 : 0;
 		return (
-			<View style={{flex: 1}}>
-				<View
+			<View>
+				<TouchableHighlight
 					style={
 						[this.props.menuItemSettings.itemStyle,
-							{ marginLeft: this.props.menuItemSettings.itemIndentValue * Number(this.indents)}
-						]}>
-					<TouchableHighlight
-						value={menuItemObject.id}
-						underlayColor="#00000000"
-						onPress={() => {
-							if (menuItemObject.onClick !== undefined) {
-								menuItemObject.onClick(menuItemObject);
-							}
+							{flex: 1, marginLeft: this.props.menuItemSettings.itemIndentValue * Number(this.indents)}
+						]}
+					value={menuItemObject.id}
+					underlayColor="#00000000"
+					onPress={() => {
+						if (menuItemObject.onClick !== undefined) {
+							menuItemObject.onClick(menuItemObject);
+						}
+					}}>
+					<View
+						style={{
+							padding: 0,
+							flexDirection: 'row',
+							flex: 1,
+							alignItems: 'center'
 						}}>
-						<View
-							style={{
-								padding: 0,
-								flexDirection: 'row',
+						{/* Show menu item IconIO or not? */}
+						{this.props.menuItemSettings.itemShowIcon && menuItemObject.icon && (
+							this.selectIconFamily(menuItemObject.icon)
+						)}
+
+						<Text
+							style={[this.props.menuItemSettings.itemTextStyle, {
 								flex: 1,
-								alignItems: 'center'
-							}}>
-							{/* Show menu item IconIO or not? */}
-							{this.props.menuItemSettings.itemShowIcon && menuItemObject.icon && (
-								this.selectIconFamily(menuItemObject.icon)
-							)}
+								flexDirection: 'row'
+							}]}
+							allowFontScaling={true}>
+							{menuItemObject.name}
+						</Text>
 
-							<Text
-								style={[this.props.menuItemSettings.itemTextStyle, {
-									flex: 1,
-									flexDirection: 'row'
-								}]}
-								allowFontScaling={true}>
-								{menuItemObject.name}
-							</Text>
-
-							{/* Show dropdown button or not? */}
-							{this.props.showDropDownButton && (
-								<TouchableHighlight
-									onPress={() => {
-										this.props.onOpenSubMenu(menuItemObject);
-									}}
-									activeOpacity={0.5}
-									underlayColor="#00000000">
-									{
-										this.selectIconFamily(this.dropDownIconName[iconIndex])
-									}
-								</TouchableHighlight>
-							)}
-						</View>
-					</TouchableHighlight>
-				</View>
+						{/* Show dropdown button or not? */}
+						{this.props.showDropDownButton && (
+							<TouchableHighlight
+								onPress={() => {
+									this.props.onOpenSubMenu(menuItemObject);
+								}}
+								activeOpacity={0.5}
+								underlayColor="#00000000">
+								{
+									this.selectIconFamily(this.dropDownIconName[iconIndex])
+								}
+							</TouchableHighlight>
+						)}
+					</View>
+				</TouchableHighlight>
 			</View>
 		);
 	}
