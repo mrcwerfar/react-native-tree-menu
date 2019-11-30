@@ -50,19 +50,25 @@ class App extends Component {
 
 			itemIconOnLeft: true,
 			itemOpenCloseIconRight: false,
-			itemTextStyle: {fontSize: 25, color:'#900FFF', textAlign: 'left'},
+			itemTextStyle: {
+				fontSize: 25,
+				color:'#900FFF',
+				textAlign: 'left'
+			},
+			itemStyle: {
+				backgroundColor: '#E0E0E0',
+				marginBottom: 0,
+				marginTop: 0,
+				marginLeft: 10,
+				marginRight: 4,
+				borderRadius: 4,
+			},
 			itemShowIcon: true,
 			itemIconSize: 25,
-			itemBackgroundColor: '#E0E0E0',
 			itemOpenMenuIcon: 'ios-arrow-dropleft-circle',
 			itemCloseMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
 			itemSeparator: true,
-			itemBorderRadius: 3,
-			itemMarginTop: 0,
-			itemMarginBottom: 0,
-			itemMarginLeft: 4,
-			itemMarginRight: 4,
-			itemSeparatorColor: '#909090',
+			itemSeparatorColor: '#FFFFFF',
 			itemSeparatorMarginTop: 1,
 			itemSeparatorMarginBottom: 1,
 			itemSeparatorMarginLeft: 4,
@@ -81,6 +87,7 @@ class App extends Component {
 							MIN MENY
 						</Text>
 						<TreeMenu
+							style={{backgroundColor: '#000000'}}
 							menuItemSettings={menuItemSettings}
 							menuObjects={menuData} />
 					</ScrollView>

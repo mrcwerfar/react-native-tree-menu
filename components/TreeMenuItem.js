@@ -53,14 +53,10 @@ class TreeMenuItem extends Component {
 		return (
 			<View style={{flex: 1}}>
 				<View
-					style={{
-						backgroundColor: this.props.menuItemSettings.itemBackgroundColor,
-						marginBottom: this.props.menuItemSettings.itemMarginBottom,
-						marginTop: this.props.menuItemSettings.itemMarginTop,
-						marginLeft: this.props.menuItemSettings.itemMarginLeft + this.props.menuItemSettings.itemIndentValue * Number(this.indents),
-						marginRight: this.props.menuItemSettings.itemMarginRight,
-						borderRadius: this.props.menuItemSettings.itemBorderRadius,
-					}}>
+					style={
+						[this.props.menuItemSettings.itemStyle,
+							{ marginLeft: this.props.menuItemSettings.itemIndentValue * Number(this.indents)}
+						]}>
 					<TouchableHighlight
 						value={menuItemObject.id}
 						underlayColor="#00000000"
