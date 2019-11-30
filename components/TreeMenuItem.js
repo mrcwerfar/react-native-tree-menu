@@ -15,7 +15,7 @@ import IconZO from 'react-native-vector-icons/Zocial';
 import IconSLI from 'react-native-vector-icons/SimpleLineIcons';
 
 /**
- *
+ * react-tree-menu item
  */
 class TreeMenuItem extends Component {
 	constructor(props, context) {
@@ -24,19 +24,6 @@ class TreeMenuItem extends Component {
 			this.indents = this.props.indents;
 		} else {
 			this.indents = 0;
-		}
-
-		this.dropDownIconName = [];
-		if (this.props.menuItemSettings.itemCloseMenuIcon) {
-			this.dropDownIconName.push(this.props.menuItemSettings.itemOpenMenuIcon);
-		} else {
-			this.dropDownIconName.push('ios-arrow-dropleft-circle');
-		}
-
-		if (this.props.menuItemSettings.itemOpenMenuIcon) {
-			this.dropDownIconName.push(this.props.menuItemSettings.itemCloseMenuIcon);
-		} else {
-			this.dropDownIconName.push('ios-arrow-dropdown-circle');
 		}
 
 		if (this.props.openSubMenu !== undefined) {
@@ -62,13 +49,13 @@ class TreeMenuItem extends Component {
 	selectIconFamily(icon) {
 		let style = {marginLeft: 5, marginRight: 10};
 		let size = this.props.menuItemSettings.itemIconSize ? this.props.menuItemSettings.itemIconSize : 35;
-		let color = '#000';
+		let color = this.props.menuItemSettings.itemIconColor ? this.props.menuItemSettings.itemIconColor : '#000';
 
 		if (!this.props.menuItemSettings.vectorIconsFamily)
 			return ( <IconIO style={style} color={color} name={icon} size={size}/> );
 
 		switch (this.props.menuItemSettings.vectorIconsFamily) {
-		case 'Ionicons': return ( <IconIO style={style} color={color} name={icon} size={size}/> );
+		case 'Ionicons': return ( <IconIO style={[style, this.props.menuItemSettings.iconStyle]} color={color} name={icon} size={size}/> );
 		case 'AntDesign': return ( <IconAD style={style} color={color} name={icon} size={size}/> );
 		case 'EvilIcons': return ( <IconEI style={style} color={color} name={icon} size={size}/> );
 		case 'Feather': return ( <IconFE style={style} color={color} name={icon} size={size}/> );
@@ -76,25 +63,23 @@ class TreeMenuItem extends Component {
 		case 'Fontisto': return ( <IconFI style={style} color={color} name={icon} size={size}/> );
 		case 'Foundation': return ( <IconFO style={style} color={color} name={icon} size={size}/> );
 		case 'MaterialIcons': return ( <IconMA style={style} color={color} name={icon} size={size}/> );
-		case 'MaterialCommunityIcons': return ( <IconMCI style={style} color={color} name={icon} size={size}/> );
+		case 'MaterialCommunityIcons': return ( <IconMCI style={[style, this.props.menuItemSettings.iconStyle]}  color={color} name={icon} size={size}/> );
 		case 'Octicons': return ( <IconOC style={style} color={color} name={icon} size={size}/> );
 		case 'Zocial': return ( <IconZO style={style} color={color} name={icon} size={size}/> );
 		case 'SimpleLineIcons': return ( <IconSLI style={style} color={color} name={icon} size={size}/> );
 		default: return ( <IconIO style={style} color={color} name={icon} size={size}/> );
 		}
-
-
-
 	}
 
 	renderItem(menuItemObject) {
 		let iconIndex = menuItemObject.openSubMenu === true ? 1 : 0;
+		let indentValue = this.props.menuItemSettings.itemIndentValue?this.props.menuItemSettings.itemIndentValue:20;
 		return (
 			<View>
 				<TouchableHighlight
 					style={
 						[this.props.menuItemSettings.itemStyle,
-							{flex: 1, marginLeft: this.props.menuItemSettings.itemIndentValue * Number(this.indents)}
+							{flex: 1, marginLeft: indentValue * Number(this.indents)}
 						]}
 					value={menuItemObject.id}
 					underlayColor="#00000000"
@@ -125,7 +110,7 @@ class TreeMenuItem extends Component {
 						</Text>
 
 						{/* Show dropdown button or not? */}
-						{this.props.showDropDownButton && (
+						{this.props.showDropDownButton && this.props.menuItemSettings.menuItemOpenCloseIcons && this.props.menuItemSettings.menuItemOpenCloseIcons.length === 2 && (
 							<TouchableHighlight
 								onPress={() => {
 									this.props.onOpenSubMenu(menuItemObject);
@@ -133,7 +118,7 @@ class TreeMenuItem extends Component {
 								activeOpacity={0.5}
 								underlayColor="#00000000">
 								{
-									this.selectIconFamily(this.dropDownIconName[iconIndex])
+									this.selectIconFamily(this.props.menuItemSettings.menuItemOpenCloseIcons[iconIndex])
 								}
 							</TouchableHighlight>
 						)}

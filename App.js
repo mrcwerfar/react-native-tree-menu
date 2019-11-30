@@ -1,7 +1,6 @@
 'use strict';
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * react-tree-menu test app.
  *
  * @format
  * @flow
@@ -42,13 +41,14 @@ class App extends Component {
 
 	render() {
 		let menuItemSettings = {
-			itemClickHandler: item => {
+			itemClickHandler: (item) => {
 				this.onMenuItemClick(item);
 			},
 
 			vectorIconsFamily: 'MaterialCommunityIcons',
 			closeOthersOnOpen: true,
 
+			menuItemOpenCloseIcons: ['arrow-left-bold-outline','arrow-down-bold-outline'],
 			itemIconOnLeft: true,
 			itemOpenCloseIconRight: false,
 			itemTextStyle: {
@@ -67,10 +67,9 @@ class App extends Component {
 			},
 			itemShowIcon: true,
 			itemIconSize: 25,
-			itemOpenMenuIcon: 'arrow-left-bold-outline',
-			itemCloseMenuIcon: 'arrow-down-bold-outline',
-			//itemOpenMenuIcon: 'ios-arrow-dropleft-circle',
-			//itemCloseMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
+			itemIconColor: '#000',
+			iconStyle: {
+			},
 			itemSeparator: true,
 			itemSeparatorColor: '#A0A0A0',
 			itemSeparatorMarginTop: 1,
@@ -91,9 +90,8 @@ class App extends Component {
 							My Screen Menu
 						</Text>
 						<TreeMenu
-							style={{backgroundColor: '#00000000'}}
-							menuItemSettings={menuItemSettings}
-							menuObjects={menuData} />
+							menuObjects={menuData}
+							menuItemSettings={menuItemSettings}/>
 					</ScrollView>
 				</SafeAreaView>
 			</View>

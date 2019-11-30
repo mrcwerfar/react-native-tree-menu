@@ -6,8 +6,10 @@ import TreeMenuItem from './TreeMenuItem';
 class TreeMenu extends Component {
 	constructor(props, context) {
 		super(props, context);
+
 		// Prepping;
 		this.prepMenuObjects(this.props.menuObjects);
+		this.setDefaultMenuItemSettingsValues();
 
 		this.state = {
 			reRender: false,
@@ -19,6 +21,34 @@ class TreeMenu extends Component {
 		for (let i = 0; i < menuObjects.length; i++) {
 			this.setSubItemParent(menuObjects[i], undefined);
 		}
+	}
+
+	setDefaultMenuItemSettingsValues() {
+		/*
+		if (this.props.menuItemSettings === undefined) {
+			this.props.menuItemSettings = {
+				vectorIconsFamily: 'Ionicons',
+			};
+		}
+		if (this.props.menuItemSettings.vectorIconsFamily === undefined) { this.props.menuItemSettings['vectorIconsFamily'] = 'Ionicons'; }
+			if (!this.props.menuItemSettings.menuItemOpenCloseIcons) { this.props.menuItemSettings.menuItemOpenCloseIcons = ['ios-arrow-dropleft-circle','ios-arrow-dropdown-circle']; }
+			if (!this.props.menuItemSettings.closeOthersOnOpen) { this.props.menuItemSettings.closeOthersOnOpen = false; }
+			if (!this.props.menuItemSettings.itemIconOnLeft) { this.props.menuItemSettings.itemIconOnLeft = true; }
+			if (!this.props.menuItemSettings.itemOpenCloseIconRight) { this.props.menuItemSettings.itemOpenCloseIconRight = true; }
+			if (!this.props.menuItemSettings.itemTextStyle) { this.props.menuItemSettings.itemTextStyle = {}; }
+			if (!this.props.menuItemSettings.itemStyle) { this.props.menuItemSettings.itemStyle = {}; }
+
+			if (!this.props.menuItemSettings.itemShowIcon) { this.props.menuItemSettings.itemShowIcon = true; }
+			if (!this.props.menuItemSettings.itemBackgroundColor) { this.props.menuItemSettings.itemBackgroundColor = '#E0E0E0'; }
+			if (!this.props.menuItemSettings.itemSeparator) { this.props.menuItemSettings.itemSeparator = true; }
+			if (!this.props.menuItemSettings.itemSeparatorColor) { this.props.menuItemSettings.itemSeparatorColor =  '#909090'; }
+			if (!this.props.menuItemSettings.itemSeparatorMarginTop) { this.props.menuItemSettings.itemSeparatorMarginTop = 1; }
+			if (!this.props.menuItemSettings.itemSeparatorMarginBottom) { this.props.menuItemSettings.itemSeparatorMarginBottom = 1; }
+			if (!this.props.menuItemSettings.itemSeparatorMarginLeft) { this.props.menuItemSettings.itemSeparatorMarginLeft = 0; }
+			if (!this.props.menuItemSettings.itemSeparatorMarginLeft) { this.props.menuItemSettings.itemSeparatorMarginLeft = 0; }
+			if (!this.props.menuItemSettings.itemSeparatorMarginRight) { this.props.menuItemSettings.itemSeparatorMarginRight = 0; }
+			if (!this.props.menuItemSettings.itemIndentValue) { this.props.menuItemSettings.itemIndentValue = 20; }
+		 */
 	}
 
 	setSubItemParent(menuObject, parent) {
@@ -34,12 +64,12 @@ class TreeMenu extends Component {
 		return (
 			<View
 				style={{
-					borderBottomColor: this.props.menuItemSettings.itemSeparatorColor,
+					borderBottomColor: this.props.menuItemSettings.itemSeparatorColor?this.props.menuItemSettings.itemSeparatorColor: '#909090',
 					borderBottomWidth: 1,
-					marginTop: this.props.menuItemSettings.itemSeparatorMarginTop,
-					marginBottom: this.props.menuItemSettings.itemSeparatorMarginBottom,
-					marginLeft: this.props.menuItemSettings.itemSeparatorMarginLeft,
-					marginRight: this.props.menuItemSettings.itemSeparatorMarginRight,
+					marginTop: this.props.menuItemSettings.itemSeparatorMarginTop?this.props.menuItemSettings.itemSeparatorMarginTop: 1,
+					marginBottom: this.props.menuItemSettings.itemSeparatorMarginBottom?this.props.menuItemSettings.itemSeparatorMarginBottom:1,
+					marginLeft: this.props.menuItemSettings.itemSeparatorMarginLeft?this.props.menuItemSettings.itemSeparatorMarginLeft:0,
+					marginRight: this.props.menuItemSettings.itemSeparatorMarginRight?this.props.menuItemSettings.itemSeparatorMarginRight:0,
 				}}
 			/>
 		);
@@ -62,10 +92,10 @@ class TreeMenu extends Component {
 
 				if (!menuItemObject.onClick) {
 					menuItemObject.onClick = () => {
-						if (menuItemObject.id) {
-							console.log(menuItemObject.id);
-						}
-						this.props.menuItemSettings.itemClickHandler(menuItemObject);
+						if (!this.props.menuItemSettings.itemClickHandler)
+							console.log('TreeMenu: Error: missing itemClickHandler implementation in menuItemSettings');
+						else
+							this.props.menuItemSettings.itemClickHandler(menuItemObject);
 					};
 				}
 
@@ -131,16 +161,37 @@ class TreeMenu extends Component {
 TreeMenu.defaultProps = {
 	menuItemSettings: {
 
+		itemClickHandler: item => {
+			console.log(item.id);
+		},
+
+		vectorIconsFamily: 'Ionicons',
 		closeOthersOnOpen: false,
 
+		menuItemOpenCloseIcons: ['ios-arrow-dropleft','ios-arrow-dropdown'],
 		itemIconOnLeft: true,
 		itemOpenCloseIconRight: false,
-		itemTextStyle: {fontSize: 20, color:'#900FFF', textAlign: 'left'},
+		itemTextStyle: {
+			fontSize: 18,
+			color:'#000000',
+			textAlign: 'left'
+		},
+		itemStyle: {
+			backgroundColor: '#E0E0E0',
+			marginBottom: 0,
+			marginTop: 0,
+			marginLeft: 10,
+			marginRight: 4,
+			borderRadius: 4,
+			height: 50
+		},
 		itemShowIcon: true,
 		itemIconSize: 25,
+		itemIconColor: '#000',
+		iconStyle: {
+		},
 		itemBackgroundColor: '#E0E0E0',
-		itemOpenMenuIcon: 'ios-arrow-dropleft-circle',
-		itemCloseMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
+		//itemCloseMenuIcon: 'ios-arrow-dropdown-circle',       //, 'ios-arrow-dropdown-circle', 'ios-arrow-dropleft', 'ios-arrow-dropdown', 'ios-arrow-dropup';
 		itemSeparator: true,
 		itemBorderRadius: 5,
 		itemMarginTop: 0,
@@ -157,15 +208,55 @@ TreeMenu.defaultProps = {
 	menuObjects:
 		[
 			{
-				id: 'id_finger_print',
-				icon: 'ios-rocket',
-				name: 'Print',
+				id: 'id_file',
+				icon: 'ios-folder',
+				name: 'File',
 				subItems: [
 					{
-						id: 'id_print_1',
-						name: 'Print 1',
+						id: 'id_file_open',
+						icon: 'ios-folder-open',
+						name: 'Open',
 						subItems: []
+					},
+					{
+						id: 'id_file_open_recent',
+						icon: 'ios-albums',
+						name: 'Open Recent',
+						subItems: [
+							{
+								id: 'id_file_open_recent1',
+								icon: 'ios-document',
+								name: 'file1 ...',
+								subItems: []
+							},
+							{
+								id: 'id_file_open_recent2',
+								icon: 'ios-document',
+								name: 'file2 ...',
+								subItems: []
+							},
+						]
 					}
+				]
+			},
+			{
+				id: 'id_edit',
+				icon: 'ios-brush',
+				name: 'Edit',
+				subItems: [
+					{
+						id: 'id_edit_copy',
+						icon: 'ios-copy',
+						name: 'Copy',
+						subItems: []
+					},
+				]
+			},
+			{
+				id: 'id_refresh',
+				icon: 'ios-refresh',
+				name: 'Refresh',
+				subItems: [
 				]
 			}
 		]
@@ -174,6 +265,7 @@ TreeMenu.defaultProps = {
 TreeMenu.propTypes = {
 	menuObjects: PropTypes.array.isRequired,
 	menuItemSettings: PropTypes.object.isRequired,
+	style: PropTypes.object
 };
 
 export default TreeMenu;
