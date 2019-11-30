@@ -26,6 +26,19 @@ class TreeMenuItem extends Component {
 			this.indents = 0;
 		}
 
+		this.dropDownIconNames = [];
+		if (this.props.openMenuItemIcon) {
+			this.dropDownIconNames.push(this.props.openMenuItemIcon);
+		} else {
+			this.dropDownIconNames.push('');
+		}
+
+		if (this.props.closeMenuItemIcon) {
+			this.dropDownIconNames.push(this.props.closeMenuItemIcon);
+		} else {
+			this.dropDownIconNames.push('');
+		}
+
 		if (this.props.openSubMenu !== undefined) {
 			if (!this.props.openSubMenu) {
 				this.state = {
@@ -51,10 +64,10 @@ class TreeMenuItem extends Component {
 		let size = this.props.menuItemSettings.itemIconSize ? this.props.menuItemSettings.itemIconSize : 35;
 		let color = this.props.menuItemSettings.itemIconColor ? this.props.menuItemSettings.itemIconColor : '#000';
 
-		if (!this.props.menuItemSettings.vectorIconsFamily)
+		if (!this.props.vectorIconsFamily)
 			return ( <IconIO style={style} color={color} name={icon} size={size}/> );
 
-		switch (this.props.menuItemSettings.vectorIconsFamily) {
+		switch (this.props.vectorIconsFamily) {
 		case 'Ionicons': return ( <IconIO style={[style, this.props.menuItemSettings.iconStyle]} color={color} name={icon} size={size}/> );
 		case 'AntDesign': return ( <IconAD style={style} color={color} name={icon} size={size}/> );
 		case 'EvilIcons': return ( <IconEI style={style} color={color} name={icon} size={size}/> );
@@ -110,7 +123,7 @@ class TreeMenuItem extends Component {
 						</Text>
 
 						{/* Show dropdown button or not? */}
-						{this.props.showDropDownButton && this.props.menuItemSettings.menuItemOpenCloseIcons && this.props.menuItemSettings.menuItemOpenCloseIcons.length === 2 && (
+						{this.props.showDropDownButton && this.dropDownIconNames && this.dropDownIconNames.length === 2 && (
 							<TouchableHighlight
 								onPress={() => {
 									this.props.onOpenSubMenu(menuItemObject);
@@ -118,7 +131,7 @@ class TreeMenuItem extends Component {
 								activeOpacity={0.5}
 								underlayColor="#00000000">
 								{
-									this.selectIconFamily(this.props.menuItemSettings.menuItemOpenCloseIcons[iconIndex])
+									this.selectIconFamily(this.dropDownIconNames[iconIndex])
 								}
 							</TouchableHighlight>
 						)}
@@ -143,6 +156,8 @@ TreeMenuItem.defaultProps = {
 	showSumMenu: true,
 	openSubMenu: true,
 	indents: 0,
+	openMenuItemIcon: '',
+	closeMenuItemIcon: ''
 };
 
 TreeMenuItem.propTypes = {
@@ -150,10 +165,11 @@ TreeMenuItem.propTypes = {
 	showSumMenu: PropTypes.bool,
 	openSubMenu: PropTypes.bool,
 	indents: PropTypes.number,
-
+	vectorIconsFamily: PropTypes.string,
+	openMenuItemIcon: PropTypes.string,
+	closeMenuItemIcon: PropTypes.string,
 	menuItemObject: PropTypes.object.isRequired,
 	menuItemSettings: PropTypes.object.isRequired,
-
 	onOpenSubMenu: PropTypes.func,
 };
 

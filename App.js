@@ -28,33 +28,27 @@ class App extends Component {
 	onMenuItemClick(menuItem) {
 		switch (menuItem.id) {
 		case 'id_analytics':
-			console.log(menuItem.name);
+			console.log("MAIN:" + menuItem.name);
 			break;
 		case 'id_color_scheme':
-			console.log(menuItem.name);
+			console.log("MAIN:" + menuItem.name);
 			break;
 		case 'id_finger_print':
-			console.log(menuItem.name);
+			console.log("MAIN:" + menuItem.name);
 			break;
 		}
 	}
 
 	render() {
 		let menuItemSettings = {
-			itemClickHandler: (item) => {
-				this.onMenuItemClick(item);
-			},
-
-			vectorIconsFamily: 'MaterialCommunityIcons',
 			closeOthersOnOpen: true,
-
-			menuItemOpenCloseIcons: ['arrow-left-bold-outline','arrow-down-bold-outline'],
 			itemIconOnLeft: true,
 			itemOpenCloseIconRight: false,
 			itemTextStyle: {
 				fontSize: 18,
 				color:'#000000',
-				textAlign: 'left'
+				textAlign: 'left',
+				marginLeft: 0
 			},
 			itemStyle: {
 				backgroundColor: '#E0E0E0',
@@ -90,8 +84,11 @@ class App extends Component {
 							My Screen Menu
 						</Text>
 						<TreeMenu
-							menuObjects={menuData}
-							menuItemSettings={menuItemSettings}/>
+							menuData={menuData}
+							menuItemSettings={menuItemSettings}
+							itemClickHandler = {
+								(item) => { this.onMenuItemClick(item); }}
+						/>
 					</ScrollView>
 				</SafeAreaView>
 			</View>

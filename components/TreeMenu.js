@@ -2,14 +2,15 @@ import React, {Component} from 'react';
 import {View} from 'react-native';
 import PropTypes from 'prop-types';
 import TreeMenuItem from './TreeMenuItem';
+import menuData from '../mymaterialmenu';
 
 class TreeMenu extends Component {
 	constructor(props, context) {
 		super(props, context);
 
 		// Prepping;
-		this.prepMenuObjects(this.props.menuObjects);
-		this.setDefaultMenuItemSettingsValues();
+		this.prepMenuObjects(this.props.menuData.menu);
+		// this.setDefaultMenuItemSettingsValues();
 
 		this.state = {
 			reRender: false,
@@ -20,6 +21,15 @@ class TreeMenu extends Component {
 	prepMenuObjects(menuObjects) {
 		for (let i = 0; i < menuObjects.length; i++) {
 			this.setSubItemParent(menuObjects[i], undefined);
+		}
+	}
+
+	setSubItemParent(menuObject, parent) {
+		menuObject['parent'] = parent;
+		if (menuObject.subItems) {
+			for (let i = 0; i < menuObject.subItems.length; i++) {
+				this.setSubItemParent(menuObject.subItems[i], menuObject);
+			}
 		}
 	}
 
@@ -49,15 +59,6 @@ class TreeMenu extends Component {
 			if (!this.props.menuItemSettings.itemSeparatorMarginRight) { this.props.menuItemSettings.itemSeparatorMarginRight = 0; }
 			if (!this.props.menuItemSettings.itemIndentValue) { this.props.menuItemSettings.itemIndentValue = 20; }
 		 */
-	}
-
-	setSubItemParent(menuObject, parent) {
-		menuObject['parent'] = parent;
-		if (menuObject.subItems) {
-			for (let i = 0; i < menuObject.subItems.length; i++) {
-				this.setSubItemParent(menuObject.subItems[i], menuObject);
-			}
-		}
 	}
 
 	renderSeparator() {
@@ -92,10 +93,12 @@ class TreeMenu extends Component {
 
 				if (!menuItemObject.onClick) {
 					menuItemObject.onClick = () => {
-						if (!this.props.menuItemSettings.itemClickHandler)
-							console.log('TreeMenu: Error: missing itemClickHandler implementation in menuItemSettings');
-						else
-							this.props.menuItemSettings.itemClickHandler(menuItemObject);
+						if (!this.props.itemClickHandler)
+							console.log('TreeMenu: Error: missing itemClickHandler property');
+						else {
+							console.log(menuItemObject.name);
+							this.props.itemClickHandler(menuItemObject);
+						}
 					};
 				}
 
@@ -107,17 +110,20 @@ class TreeMenu extends Component {
 
 						<TreeMenuItem
 							menuItemObject={menuItemObject}
+							vectorIconsFamily={this.props.menuData.vectorIconsFamily?this.props.menuData.vectorIconsFamily:'Ionicons'}
 							menuItemSettings={this.props.menuItemSettings}
 							indents={level}
 							openSubMenu={menuItemObject.openSubMenu?menuItemObject.openSubMenu: false}
 							showDropDownButton={showDropDownButton}
+							openMenuItemIcon={this.props.menuData.openMenuItemIcon}
+							closeMenuItemIcon={this.props.menuData.closeMenuItemIcon}
 							onOpenSubMenu={(menuItemObject) => {
 								menuItemObject.openSubMenu = !menuItemObject.openSubMenu;
 								if (menuItemObject.openSubMenu) {
 									// Close others:
 									if (this.props.menuItemSettings.closeOthersOnOpen) {
-										let itemsToCompress=this.props.menuObjects;
-										// Get menuItemObjects parents subItems. If not exist, then use this.props.menuObjects:
+										let itemsToCompress=this.props.menuData.menu;
+										// Get menuItemObjects parents subItems. If not exist, then use this.props.menuData.menu:
 										let menuItemObjectParent = menuItemObject.parent;
 										if (menuItemObjectParent)
 											itemsToCompress = menuItemObjectParent.subItems?menuItemObjectParent.subItems:[];
@@ -154,21 +160,13 @@ class TreeMenu extends Component {
 	}
 
 	render() {
-		return <View>{this.renderMenu(0, this.props.menuObjects)}</View>;
+		return <View>{this.renderMenu(0, this.props.menuData.menu)}</View>;
 	}
 }
 
 TreeMenu.defaultProps = {
 	menuItemSettings: {
-
-		itemClickHandler: item => {
-			console.log(item.id);
-		},
-
-		vectorIconsFamily: 'Ionicons',
 		closeOthersOnOpen: false,
-
-		menuItemOpenCloseIcons: ['ios-arrow-dropleft','ios-arrow-dropdown'],
 		itemIconOnLeft: true,
 		itemOpenCloseIconRight: false,
 		itemTextStyle: {
@@ -263,7 +261,8 @@ TreeMenu.defaultProps = {
 };
 
 TreeMenu.propTypes = {
-	menuObjects: PropTypes.array.isRequired,
+	itemClickHandler: PropTypes.func.isRequired,
+	menuData: PropTypes.object.isRequired,
 	menuItemSettings: PropTypes.object.isRequired,
 	style: PropTypes.object
 };

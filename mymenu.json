@@ -1,115 +1,121 @@
-[
-  {
-    "id": "id_analytics",
-    "icon": "md-analytics",
-    "name": "Analytics",
-    "subItems": [
-      {
-        "id": "id_analytics_rename",
-        "icon": "md-color-wand",
-        "name": "Rename",
-        "subItems": []
-      },
-      {
-        "id": "id_analytics_copy",
-        "icon": "md-airplane",
-        "name": "Copy",
-        "subItems": [
-          {
-            "id": "id_analytics_copy_1",
-            "icon": "md-analytics",
-            "name": "Copy 1",
-            "subItems": []
-          },
-          {
-            "id": "id_analytics_copy_2",
-            "icon": "md-analytics",
-            "name": "Copy 2",
-            "subItems": []
-          }
-        ]
-      },
-      {
-        "id": "id_analytics_delete",
-        "icon": "ios-trash",
-        "name": "Delete",
-        "subItems": [
-          {
-            "id": "id_analytics_delete_1",
-            "name": "No 1",
-            "subItems": [
-              {
-                "id": "id_analytics_delete_1_1",
-                "name": "No 1-1",
-                "subItems": []
-              }
-            ]
-          },
-          {
-            "id": "id_analytics_delete_2",
-            "name": "No 2",
-            "subItems": []
-          },
-          {
-            "id": "id_analytics_delete_3",
-            "name": "No 3",
-            "subItems": []
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "id_color_scheme",
-    "icon": "ios-brush",
-    "name": "Color scheme",
-    "subItems": [
-      {
-        "id": "id_color_scheme_edit1",
-        "name": "Edit 1",
-        "showIcon": false,
-        "subItems": []
-      },
-      {
-        "id": "id_color_scheme_edit2",
-        "name": "Edit  2",
-        "showIcon": true,
-        "subItems": []
-      }
-    ]
-  },
-  {
-    "id": "id_finger_print",
-    "icon": "ios-finger-print",
-    "name": "Authenticate",
-    "subItems": [
-      {
-        "id": "id_finger_print_set1",
-        "name": "Settings 1",
-        "subItems": []
-      },
-      {
-        "id": "id_finger_print_set2",
-        "name": "Settings  2",
-        "subItems": []
-      },
-      {
-        "id": "id_finger_print_set3",
-        "name": "Settings  3",
-        "subItems": []
-      }
-    ]
-  },
-  {
-    "id": "id_finger_print",
-    "icon": "ios-rocket",
-    "name": "Print",
-    "subItems": [
-      {
-        "id": "id_print_1",
-        "name": "Print 1",
-        "subItems": []
-      }
-    ]
-  }
-]
+{
+  "vectorIconsFamily": "Ionicons",
+  "openMenuItemIcon": "",
+  "closeMenuItemIcon": "",
+  "menu":
+  [
+    {
+      "id": "id_analytics",
+      "icon": "md-analytics",
+      "name": "Analytics",
+      "subItems": [
+        {
+          "id": "id_analytics_rename",
+          "icon": "md-color-wand",
+          "name": "Rename",
+          "subItems": []
+        },
+        {
+          "id": "id_analytics_copy",
+          "icon": "md-airplane",
+          "name": "Copy",
+          "subItems": [
+            {
+              "id": "id_analytics_copy_1",
+              "icon": "md-analytics",
+              "name": "Copy 1",
+              "subItems": []
+            },
+            {
+              "id": "id_analytics_copy_2",
+              "icon": "md-analytics",
+              "name": "Copy 2",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "id_analytics_delete",
+          "icon": "ios-trash",
+          "name": "Delete",
+          "subItems": [
+            {
+              "id": "id_analytics_delete_1",
+              "name": "No 1",
+              "subItems": [
+                {
+                  "id": "id_analytics_delete_1_1",
+                  "name": "No 1-1",
+                  "subItems": []
+                }
+              ]
+            },
+            {
+              "id": "id_analytics_delete_2",
+              "name": "No 2",
+              "subItems": []
+            },
+            {
+              "id": "id_analytics_delete_3",
+              "name": "No 3",
+              "subItems": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "id_color_scheme",
+      "icon": "ios-brush",
+      "name": "Color scheme",
+      "subItems": [
+        {
+          "id": "id_color_scheme_edit1",
+          "name": "Edit 1",
+          "showIcon": false,
+          "subItems": []
+        },
+        {
+          "id": "id_color_scheme_edit2",
+          "name": "Edit  2",
+          "showIcon": true,
+          "subItems": []
+        }
+      ]
+    },
+    {
+      "id": "id_finger_print",
+      "icon": "ios-finger-print",
+      "name": "Authenticate",
+      "subItems": [
+        {
+          "id": "id_finger_print_set1",
+          "name": "Settings 1",
+          "subItems": []
+        },
+        {
+          "id": "id_finger_print_set2",
+          "name": "Settings  2",
+          "subItems": []
+        },
+        {
+          "id": "id_finger_print_set3",
+          "name": "Settings  3",
+          "subItems": []
+        }
+      ]
+    },
+    {
+      "id": "id_finger_print",
+      "icon": "ios-rocket",
+      "name": "Print",
+      "subItems": [
+        {
+          "id": "id_print_1",
+          "name": "Print 1",
+          "subItems": []
+        }
+      ]
+    }
+  ]
+}
