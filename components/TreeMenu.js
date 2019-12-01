@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import TreeMenuItem from './TreeMenuItem';
 import menuData from '../mymaterialmenu';
 
+/**
+ * react-tree-screen-menu
+ */
 class TreeMenu extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -76,7 +79,7 @@ class TreeMenu extends Component {
 		);
 	}
 
-	renderMenu(level, menuObjects) {
+	renderMenu(level, key, menuObjects) {
 		let returnValue = [];
 		if (menuObjects !== undefined && menuObjects.length > 0) {
 			for (let i = 0; i < menuObjects.length; i++) {
@@ -101,11 +104,10 @@ class TreeMenu extends Component {
 						}
 					};
 				}
-
-				// TODO: gi unik verdi på key.
+				//let useCustomItemContentRenderer = this.props.useCustomItemContentRenderer?this.props.useCustomItemContentRenderer:undefined;
 				returnValue.push(
 					<View
-						key={level * 10 + i}
+						key={key++}
 						style = {this.props.style}>
 
 						<TreeMenuItem
@@ -117,8 +119,14 @@ class TreeMenu extends Component {
 							showDropDownButton={showDropDownButton}
 							openMenuItemIcon={this.props.menuData.openMenuItemIcon}
 							closeMenuItemIcon={this.props.menuData.closeMenuItemIcon}
+							useCustomItemContentRenderer={this.props.useCustomItemContentRenderer}
 							onOpenSubMenu={(menuItemObject) => {
+
 								menuItemObject.openSubMenu = !menuItemObject.openSubMenu;
+								// Raise openClose-event:
+								if (this.props.itemOpenCloseHandler)
+									this.props.itemOpenCloseHandler(menuItemObject, menuItemObject.openSubMenu);
+
 								if (menuItemObject.openSubMenu) {
 									// Close others:
 									if (this.props.menuItemSettings.closeOthersOnOpen) {
@@ -148,7 +156,7 @@ class TreeMenu extends Component {
 				);
 				if (menuItemObject.openSubMenu === true) {
 					if (subItems && subItems.length > 0) {
-						returnValue.push(this.renderMenu(level + 1, subItems));
+						returnValue.push(this.renderMenu(level + 1, key, subItems));
 					}
 				}
 			}
@@ -160,7 +168,7 @@ class TreeMenu extends Component {
 	}
 
 	render() {
-		return <View>{this.renderMenu(0, this.props.menuData.menu)}</View>;
+		return <View>{this.renderMenu(0, 0, this.props.menuData.menu)}</View>;
 	}
 }
 
@@ -262,9 +270,13 @@ TreeMenu.defaultProps = {
 
 TreeMenu.propTypes = {
 	itemClickHandler: PropTypes.func.isRequired,
+	itemOpenCloseHandler: PropTypes.func,
+	useCustomItemContentRenderer: PropTypes.bool,
+
 	menuData: PropTypes.object.isRequired,
 	menuItemSettings: PropTypes.object.isRequired,
-	style: PropTypes.object
+
+	style: PropTypes.object,
 };
 
 export default TreeMenu;

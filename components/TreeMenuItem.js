@@ -13,9 +13,10 @@ import IconMCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconOC from 'react-native-vector-icons/Octicons';
 import IconZO from 'react-native-vector-icons/Zocial';
 import IconSLI from 'react-native-vector-icons/SimpleLineIcons';
+import TreeMenuCustomItemContent from './TreeMenuCustomItemContent';
 
 /**
- * react-tree-menu item
+ * react-tree-screen-menu item
  */
 class TreeMenuItem extends Component {
 	constructor(props, context) {
@@ -84,11 +85,27 @@ class TreeMenuItem extends Component {
 		}
 	}
 
+	renderItemContent(menuItemObject) {
+		if (this.props.useCustomItemContentRenderer && this.props.useCustomItemContentRenderer===true) {
+			return (<TreeMenuCustomItemContent menuItemObject={menuItemObject}></TreeMenuCustomItemContent>);
+		} else {
+			return (
+				<View style={{backgroundColor: '#FD0E98'}}>
+					<Text
+						style={this.props.menuItemSettings.itemTextStyle}
+						allowFontScaling={true}>
+						{menuItemObject.name}
+					</Text>
+				</View>
+			);
+		}
+	}
+
 	renderItem(menuItemObject) {
 		let iconIndex = menuItemObject.openSubMenu === true ? 1 : 0;
 		let indentValue = this.props.menuItemSettings.itemIndentValue?this.props.menuItemSettings.itemIndentValue:20;
 		return (
-			<View>
+			<View style={{flex:1}}>
 				<TouchableHighlight
 					style={
 						[this.props.menuItemSettings.itemStyle,
@@ -113,14 +130,11 @@ class TreeMenuItem extends Component {
 							this.selectIconFamily(menuItemObject.icon)
 						)}
 
-						<Text
-							style={[this.props.menuItemSettings.itemTextStyle, {
-								flex: 1,
-								flexDirection: 'row'
-							}]}
-							allowFontScaling={true}>
-							{menuItemObject.name}
-						</Text>
+						<View style={{flex: 1}}>
+							{
+								this.renderItemContent(menuItemObject)
+							}
+						</View>
 
 						{/* Show dropdown button or not? */}
 						{this.props.showDropDownButton && this.dropDownIconNames && this.dropDownIconNames.length === 2 && (
@@ -171,6 +185,7 @@ TreeMenuItem.propTypes = {
 	menuItemObject: PropTypes.object.isRequired,
 	menuItemSettings: PropTypes.object.isRequired,
 	onOpenSubMenu: PropTypes.func,
+	useCustomItemContentRenderer: PropTypes.bool,
 };
 
 export default TreeMenuItem;

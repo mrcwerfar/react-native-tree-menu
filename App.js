@@ -1,6 +1,6 @@
 'use strict';
 /**
- * react-tree-menu test app.
+ * react-tree-screen-menu demo app.
  *
  * @format
  * @flow
@@ -18,7 +18,8 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import TreeMenu from './components/TreeMenu';
-import menuData from './mymaterialmenu.json'; // The menu structure ...
+import menuData from './mymaterialmenu.json';
+import TreeMenuCustomItemContent from './components/TreeMenuCustomItemContent'; // The menu structure ...
 
 class App extends Component {
 	constructor(props, context) {
@@ -28,15 +29,19 @@ class App extends Component {
 	onMenuItemClick(menuItem) {
 		switch (menuItem.id) {
 		case 'id_analytics':
-			console.log("MAIN:" + menuItem.name);
+			console.log('CLICK:' + menuItem.name);
 			break;
 		case 'id_color_scheme':
-			console.log("MAIN:" + menuItem.name);
+			console.log('CLICK:' + menuItem.name);
 			break;
 		case 'id_finger_print':
-			console.log("MAIN:" + menuItem.name);
+			console.log('CLICK:' + menuItem.name);
 			break;
 		}
+	}
+
+	itemOpenCloseHandler(menuItemObject, open) {
+		console.log('OpenClose:' + menuItemObject.name + ' ' + String(open));
 	}
 
 	render() {
@@ -57,7 +62,6 @@ class App extends Component {
 				marginLeft: 10,
 				marginRight: 4,
 				borderRadius: 4,
-				height: 50
 			},
 			itemShowIcon: true,
 			itemIconSize: 25,
@@ -86,8 +90,9 @@ class App extends Component {
 						<TreeMenu
 							menuData={menuData}
 							menuItemSettings={menuItemSettings}
-							itemClickHandler = {
-								(item) => { this.onMenuItemClick(item); }}
+							itemClickHandler = {(menuItemObject) => { this.onMenuItemClick(menuItemObject); }}
+							itemOpenCloseHandler = {(menuItemObject, open) => { this.itemOpenCloseHandler(menuItemObject, open); }}
+							useCustomItemContentRenderer = {true}
 						/>
 					</ScrollView>
 				</SafeAreaView>
