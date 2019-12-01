@@ -19,7 +19,6 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import TreeMenu from './components/TreeMenu';
 import menuData from './mymaterialmenu.json';
-import TreeMenuCustomItemContent from './components/TreeMenuCustomItemContent'; // The menu structure ...
 
 class App extends Component {
 	constructor(props, context) {

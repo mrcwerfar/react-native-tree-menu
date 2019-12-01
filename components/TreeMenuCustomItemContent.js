@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {TouchableHighlight, View, Text} from 'react-native';
+import {TouchableHighlight, View, Text, Image} from 'react-native';
 import IconIO from 'react-native-vector-icons/Ionicons';
 import IconAD from 'react-native-vector-icons/AntDesign';
 import IconEI from 'react-native-vector-icons/EvilIcons';
@@ -28,29 +28,46 @@ class TreeMenuCustomItemContent extends Component {
 			switch (menuItemObject.id) {
 			case 'id_analytics':
 				return (
-					<View style={{backgroundColor: '#0E9A90', height: 150, justifyContent: 'center'}}>
+					<View style={{backgroundColor: '#0E9A90', alignItems: 'center', justifyContent: 'center'}}>
 						<Text
-							style={{
-								textAlign: 'center'
-							}}
 							allowFontScaling={true}>
 							Custom renderer: {menuItemObject.name}
 						</Text>
-						<Image >
-
-						</Image>
+						<Image
+							style={{
+								marginLeft: 0,
+								marginRight: 0,
+								marginTop: 20,
+								marginBottom: 20,
+								borderRadius: 0,
+								padding: 0,
+								height: 70,
+								width: 70
+							}}
+							resizeMode='cover'
+							source={require('../images/icons8-play.png')}/>
 					</View>
 				);
 			case 'id_color_scheme':
 				return (
-					<View style={{backgroundColor: '#DA07FE', height: 120, justifyContent: 'center'}}>
+					<View style={{backgroundColor: '#DA07FE', alignItems: 'center', justifyContent: 'center'}}>
 						<Text
-							style={{
-								textAlign: 'center'
-							}}
 							allowFontScaling={true}>
 							Custom renderer: {menuItemObject.name}
 						</Text>
+						<Image
+							style={{
+								marginLeft: 0,
+								marginRight: 0,
+								marginTop: 20,
+								marginBottom: 20,
+								borderRadius: 0,
+								padding: 0,
+								height: 70,
+								width: 70
+							}}
+							resizeMode='cover'
+							source={require('../images/icons8-sleeping_in_bed.png')}/>
 					</View>
 				);
 			default:
