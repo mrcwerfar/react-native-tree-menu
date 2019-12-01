@@ -94,7 +94,7 @@ class TreeMenu extends Component {
 					showDropDownButton = true;
 				}
 
-				if (menuItemObject.onClick) {
+				if (!menuItemObject.onClick) {
 					menuItemObject.onClick = () => {
 						if (!this.props.itemClickHandler)
 							console.log('TreeMenu: Error: missing itemClickHandler property');
