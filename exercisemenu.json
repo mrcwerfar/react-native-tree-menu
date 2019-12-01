@@ -1,0 +1,122 @@
+{
+  "vectorIconsFamily": "Ionicons",
+  "openMenuItemIcon": "ios-arrow-back",
+  "closeMenuItemIcon": "ios-arrow-down",
+  "menu":
+  [
+    {
+      "id": "id_new_session",
+      "icon": "ios-american-football",
+      "name": "New Session",
+      "subItems": [
+        {
+          "id": "id_new_session_find_program",
+          "icon": "ios-search",
+          "name": "Find program",
+          "subItems": []
+        },
+        {
+          "id": "id_new_session_select_program",
+          "icon": "ios-checkmark",
+          "name": "Select program",
+          "subItems": [
+            {
+              "id": "id_new_session_select_program1",
+              "icon": "ios-add",
+              "name": "Bicycling",
+              "subItems": []
+            },
+            {
+              "id": "id_new_session_select_program2",
+              "icon": "ios-add",
+              "name": "Body workout",
+              "subItems": []
+            },
+            {
+              "id": "id_new_session_select_program3",
+              "icon": "ios-add",
+              "name": "Hiking",
+              "subItems": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "id_activity",
+      "icon": "md-pulse",
+      "name": "My activity",
+      "subItems": [
+        {
+          "id": "id_activity_find_program",
+          "icon": "ios-search",
+          "name": "Find program to display",
+          "subItems": []
+        },
+        {
+          "id": "id_activity_select_program",
+          "icon": "ios-checkmark",
+          "name": "Select program",
+          "subItems": [
+            {
+              "id": "id_activity_select_program1",
+              "icon": "ios-bicycle",
+              "name": "Show Bicycling",
+              "subItems": []
+            },
+            {
+              "id": "id_activity_select_program2",
+              "icon": "ios-body",
+              "name": "Show Body Workout",
+              "subItems": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "id_programs",
+      "icon": "ios-list",
+      "name": "Programs",
+      "subItems": [
+        {
+          "id": "id_programs_select_program1",
+          "icon": "ios-bicycle",
+          "name": "Bicycling",
+          "subItems": []
+        },
+        {
+          "id": "id_programs_select_program2",
+          "icon": "ios-body",
+          "name": "Body workout",
+          "subItems": []
+        },
+        {
+          "id": "id_programs_select_program3",
+          "icon": "ios-walk",
+          "name": "Hiking",
+          "subItems": []
+        },
+        {
+          "id": "id_programs_add",
+          "icon": "ios-add",
+          "name": "Add new program",
+          "subItems": []
+        }
+      ]
+    },
+    {
+      "id": "id_exercises",
+      "icon": "ios-heart-empty",
+      "name": "Exercises",
+      "subItems": [
+        {
+          "id": "id_exercises_add",
+          "icon": "ios-add",
+          "name": "Add new exercise",
+          "subItems": []
+        }
+      ]
+    }
+  ]
+}

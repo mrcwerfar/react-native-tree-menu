@@ -186,10 +186,9 @@ TreeMenu.defaultProps = {
 			backgroundColor: '#E0E0E0',
 			marginBottom: 0,
 			marginTop: 0,
-			marginLeft: 10,
+			marginLeft: 4,
 			marginRight: 4,
 			borderRadius: 4,
-			height: 50
 		},
 		itemShowIcon: true,
 		itemIconSize: 25,
@@ -211,61 +210,67 @@ TreeMenu.defaultProps = {
 		itemSeparatorMarginRight: 0,
 		itemIndentValue: 20
 	},
-	menuObjects:
-		[
-			{
-				id: 'id_file',
-				icon: 'ios-folder',
-				name: 'File',
-				subItems: [
-					{
-						id: 'id_file_open',
-						icon: 'ios-folder-open',
-						name: 'Open',
-						subItems: []
-					},
-					{
-						id: 'id_file_open_recent',
-						icon: 'ios-albums',
-						name: 'Open Recent',
-						subItems: [
-							{
-								id: 'id_file_open_recent1',
-								icon: 'ios-document',
-								name: 'file1 ...',
-								subItems: []
-							},
-							{
-								id: 'id_file_open_recent2',
-								icon: 'ios-document',
-								name: 'file2 ...',
-								subItems: []
-							},
-						]
-					}
-				]
-			},
-			{
-				id: 'id_edit',
-				icon: 'ios-brush',
-				name: 'Edit',
-				subItems: [
-					{
-						id: 'id_edit_copy',
-						icon: 'ios-copy',
-						name: 'Copy',
-						subItems: []
-					},
-				]
-			},
-			{
-				id: 'id_refresh',
-				icon: 'ios-refresh',
-				name: 'Refresh',
-				subItems: [
-				]
-			}
-		]
+	menuData:
+		{
+			vectorIconsFamily: 'Ionicons',
+			openMenuItemIcon: 'ios-arrow-back',
+			closeMenuItemIcon: 'ios-arrow-down',
+			menu:
+			[
+				{
+					id: 'id_file',
+					icon: 'ios-folder',
+					name: 'File (demo)',
+					subItems: [
+						{
+							id: 'id_file_open',
+							icon: 'ios-folder-open',
+							name: 'Open',
+							subItems: []
+						},
+						{
+							id: 'id_file_open_recent',
+							icon: 'ios-albums',
+							name: 'Open Recent',
+							subItems: [
+								{
+									id: 'id_file_open_recent1',
+									icon: 'ios-document',
+									name: 'file1 ...',
+									subItems: []
+								},
+								{
+									id: 'id_file_open_recent2',
+									icon: 'ios-document',
+									name: 'file2 ...',
+									subItems: []
+								},
+							]
+						}
+					]
+				},
+				{
+					id: 'id_edit',
+					icon: 'ios-brush',
+					name: 'Edit (demo)',
+					subItems: [
+						{
+							id: 'id_edit_copy',
+							icon: 'ios-copy',
+							name: 'Copy',
+							subItems: []
+						},
+					]
+				},
+				{
+					id: 'id_refresh',
+					icon: 'ios-refresh',
+					name: 'Refresh (demo)',
+					subItems: [
+					]
+				}
+			]
+		}
 };
 
 TreeMenu.propTypes = {

@@ -18,7 +18,7 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import TreeMenu from './components/TreeMenu';
-import menuData from './mymenu.json';
+import menuData from './exercisemenu.json';
 
 class App extends Component {
 	constructor(props, context) {
@@ -46,7 +46,7 @@ class App extends Component {
 	render() {
 		let menuItemSettings = {
 			closeOthersOnOpen: true,
-			defaultIcon: '\u25A0',
+			defaultIcon: '\u25b6',  // '\u25E6', '\u25cf',
 			itemIconOnLeft: true,
 			itemOpenCloseIconRight: false,
 			itemTextStyle: {
@@ -59,13 +59,14 @@ class App extends Component {
 				backgroundColor: '#E0E0E0',
 				marginBottom: 0,
 				marginTop: 0,
-				marginLeft: 0,
-				marginRight: 0,
-				borderRadius: 4,
+				marginLeft: 4,
+				marginRight: 4,
+				borderRadius: 3,
 			},
 			itemShowIcon: true,
-			itemIconSize: 25,
-			itemIconColor: '#000',
+			itemIconSize: 40,
+			itemIconColor: '#AAA',
+			itemOpenCloseIconColor: '#000',
 			iconStyle: {
 			},
 			itemSeparator: true,
@@ -74,7 +75,7 @@ class App extends Component {
 			itemSeparatorMarginBottom: 1,
 			itemSeparatorMarginLeft: 4,
 			itemSeparatorMarginRight: 4,
-			itemIndentValue: 35
+			itemIndentValue: 40
 		};
 
 		return (
@@ -92,7 +93,7 @@ class App extends Component {
 							menuItemSettings={menuItemSettings}
 							itemClickHandler = {(menuItemObject) => { this.onMenuItemClick(menuItemObject); }}
 							itemOpenCloseHandler = {(menuItemObject, open) => { this.itemOpenCloseHandler(menuItemObject, open); }}
-							useCustomItemContentRenderer = {true}
+							useCustomItemContentRenderer = {false}
 						/>
 					</ScrollView>
 				</SafeAreaView>

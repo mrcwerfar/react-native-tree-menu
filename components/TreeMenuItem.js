@@ -60,10 +60,9 @@ class TreeMenuItem extends Component {
 		}
 	}
 
-	selectIconFamily(icon) {
-		let style = {marginLeft: 5, marginRight: 5};
+	selectIconFamily(icon, color) {
+		let style = {marginLeft: 5, marginRight: 5, alignSelf: 'center'};
 		let size = this.props.menuItemSettings.itemIconSize ? this.props.menuItemSettings.itemIconSize : 35;
-		let color = this.props.menuItemSettings.itemIconColor ? this.props.menuItemSettings.itemIconColor : '#000';
 
 		if (!this.props.vectorIconsFamily)
 			return ( <IconIO style={style} color={color} name={icon} size={size}/> );
@@ -106,12 +105,16 @@ class TreeMenuItem extends Component {
 		let iconIndex = menuItemObject.openSubMenu === true ? 1 : 0;
 		let indentValue = this.props.menuItemSettings.itemIndentValue?this.props.menuItemSettings.itemIndentValue:35;
 		let iconSize = this.props.menuItemSettings.itemIconSize ? this.props.menuItemSettings.itemIconSize : 35;
+		let initLeftMargin = this.props.menuItemSettings.itemStyle.marginLeft?this.props.menuItemSettings.itemStyle.marginLeft:0;
+		let rightMargin = this.props.menuItemSettings.itemStyle.marginRight?this.props.menuItemSettings.itemStyle.marginRight:0;
+		let itemOpenCloseIconColor = this.props.menuItemSettings.itemStyle.itemOpenCloseIconColor?this.props.menuItemSettings.itemStyle.itemOpenCloseIconColor:'#000';
+		let itemIconColor = this.props.menuItemSettings.itemIconColor ? this.props.menuItemSettings.itemIconColor : '#AAA';
 		return (
 			<View style={{flex:1}}>
 				<TouchableHighlight
 					style={
 						[this.props.menuItemSettings.itemStyle,
-							{flex: 1, marginLeft: indentValue * Number(this.indents)}
+							{flex: 1, marginLeft: initLeftMargin + indentValue * Number(this.indents)}
 						]}
 					value={menuItemObject.id}
 					underlayColor="#00000000"
@@ -129,12 +132,15 @@ class TreeMenuItem extends Component {
 						}}>
 						{/* Show menu item IconIO or not? */}
 						{this.props.menuItemSettings.itemShowIcon && menuItemObject.icon && (
-							this.selectIconFamily(menuItemObject.icon)
+							<View style={{width: iconSize+initLeftMargin+rightMargin}}>
+								{
+									this.selectIconFamily(menuItemObject.icon, itemIconColor)
+								}
+							</View>
 						)}
 						{this.props.menuItemSettings.itemShowIcon && !menuItemObject.icon && (
-							<Text style={{marginLeft: 3, marginRight: 3}}>{defaultIcon}</Text>
+							<Text style={{width: iconSize+initLeftMargin+rightMargin, fontSize: iconSize, alignContent: 'center', marginLeft: 3, marginRight: 3}}>{defaultIcon}</Text>
 						)}
-
 						<View style={{flex: 1}}>
 							{
 								this.renderItemContent(menuItemObject)
@@ -144,14 +150,17 @@ class TreeMenuItem extends Component {
 						{/* Show dropdown button or not? */}
 						{this.props.showDropDownButton && this.dropDownIconNames && this.dropDownIconNames.length === 2 && (
 							<TouchableHighlight
-								style={{alignItems: 'center', backgroundColor: '#00000000', width: iconSize}}
+								style={{alignItems: 'center', width: iconSize}}
 								onPress={() => { this.props.onOpenSubMenu(menuItemObject); }}
 								activeOpacity={0.5}
 								underlayColor="#00000000">
 								{
-									this.selectIconFamily(this.dropDownIconNames[iconIndex])
+									this.selectIconFamily(this.dropDownIconNames[iconIndex], itemOpenCloseIconColor)
 								}
 							</TouchableHighlight>
+						)}
+						{!(this.props.showDropDownButton && this.dropDownIconNames && this.dropDownIconNames.length === 2) && (
+							<View style={{alignItems: 'center', width: iconSize}}/>
 						)}
 					</View>
 				</TouchableHighlight>
