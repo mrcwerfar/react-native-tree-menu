@@ -18,7 +18,7 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import TreeMenu from './components/TreeMenu';
-import menuData from './mymaterialmenu.json';
+import menuData from './mymenu.json';
 
 class App extends Component {
 	constructor(props, context) {
@@ -46,6 +46,7 @@ class App extends Component {
 	render() {
 		let menuItemSettings = {
 			closeOthersOnOpen: true,
+			defaultIcon: '\u25A0',
 			itemIconOnLeft: true,
 			itemOpenCloseIconRight: false,
 			itemTextStyle: {
@@ -58,8 +59,8 @@ class App extends Component {
 				backgroundColor: '#E0E0E0',
 				marginBottom: 0,
 				marginTop: 0,
-				marginLeft: 10,
-				marginRight: 4,
+				marginLeft: 0,
+				marginRight: 0,
 				borderRadius: 4,
 			},
 			itemShowIcon: true,
@@ -73,7 +74,7 @@ class App extends Component {
 			itemSeparatorMarginBottom: 1,
 			itemSeparatorMarginLeft: 4,
 			itemSeparatorMarginRight: 4,
-			itemIndentValue: 20
+			itemIndentValue: 35
 		};
 
 		return (

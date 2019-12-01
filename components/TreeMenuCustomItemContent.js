@@ -22,68 +22,47 @@ class TreeMenuCustomItemContent extends Component {
 		super(props, context);
 	}
 
+	renderDemoItem(menuItemObject, color, r) {
+		let style = {alignItems: 'center', justifyContent: 'center'};
+		return (
+			<View style={[style, {backgroundColor: color}]}>
+				<Text
+					allowFontScaling={true}>
+					Custom renderer: {menuItemObject.name}
+				</Text>
+				<Image
+					style={{
+						marginLeft: 0,
+						marginRight: 0,
+						marginTop: 20,
+						marginBottom: 20,
+						borderRadius: 0,
+						padding: 0,
+						height: 70,
+						width: 70
+					}}
+					resizeMode='cover'
+					source={r}/>
+			</View>
+		);
+	}
+
 	render() {
 		let menuItemObject = this.props.menuItemObject;
+
 		if (menuItemObject) {
 			switch (menuItemObject.id) {
 			case 'id_analytics':
-				return (
-					<View style={{backgroundColor: '#0E9A90', alignItems: 'center', justifyContent: 'center'}}>
-						<Text
-							allowFontScaling={true}>
-							Custom renderer: {menuItemObject.name}
-						</Text>
-						<Image
-							style={{
-								marginLeft: 0,
-								marginRight: 0,
-								marginTop: 20,
-								marginBottom: 20,
-								borderRadius: 0,
-								padding: 0,
-								height: 70,
-								width: 70
-							}}
-							resizeMode='cover'
-							source={require('../images/icons8-play.png')}/>
-					</View>
-				);
+				return this.renderDemoItem(menuItemObject, '#09A509', require('../images/icons8-detective.png'));
 			case 'id_color_scheme':
-				return (
-					<View style={{backgroundColor: '#DA07FE', alignItems: 'center', justifyContent: 'center'}}>
-						<Text
-							allowFontScaling={true}>
-							Custom renderer: {menuItemObject.name}
-						</Text>
-						<Image
-							style={{
-								marginLeft: 0,
-								marginRight: 0,
-								marginTop: 20,
-								marginBottom: 20,
-								borderRadius: 0,
-								padding: 0,
-								height: 70,
-								width: 70
-							}}
-							resizeMode='cover'
-							source={require('../images/icons8-sleeping_in_bed.png')}/>
-					</View>
-				);
+				return this.renderDemoItem(menuItemObject, '#DA07FE', require('../images/icons8-play.png'));
+			case 'id_finger_print':
+				return this.renderDemoItem(menuItemObject, '#09FEFE', require('../images/icons8-deadlift.png'));
+			case 'id_print':
+				return this.renderDemoItem(menuItemObject, '#dee204', require('../images/icons8-weight_2.png'));
 			default:
-				return (
-					<View style={{backgroundColor: '#AAAAAA', height: 140, justifyContent: 'center'}}>
-						<Text
-							style={{
-								textAlign: 'center'
-							}}
-							allowFontScaling={true}>
-							Custom renderer: {menuItemObject.name}
-						</Text>
-					</View>
-				);
+				return this.renderDemoItem(menuItemObject, '#E0E0E0', require('../images/icons8-sleeping_in_bed.png'));
 			}
-
 		} else
 			return (<View><Text>Custom item content</Text></View>);
 	}

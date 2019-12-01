@@ -61,7 +61,7 @@ class TreeMenuItem extends Component {
 	}
 
 	selectIconFamily(icon) {
-		let style = {marginLeft: 5, marginRight: 10};
+		let style = {marginLeft: 5, marginRight: 5};
 		let size = this.props.menuItemSettings.itemIconSize ? this.props.menuItemSettings.itemIconSize : 35;
 		let color = this.props.menuItemSettings.itemIconColor ? this.props.menuItemSettings.itemIconColor : '#000';
 
@@ -102,8 +102,10 @@ class TreeMenuItem extends Component {
 	}
 
 	renderItem(menuItemObject) {
+		let defaultIcon = this.props.menuItemSettings.defaultIcon?this.props.menuItemSettings.defaultIcon:'\u25A3';
 		let iconIndex = menuItemObject.openSubMenu === true ? 1 : 0;
-		let indentValue = this.props.menuItemSettings.itemIndentValue?this.props.menuItemSettings.itemIndentValue:20;
+		let indentValue = this.props.menuItemSettings.itemIndentValue?this.props.menuItemSettings.itemIndentValue:35;
+		let iconSize = this.props.menuItemSettings.itemIconSize ? this.props.menuItemSettings.itemIconSize : 35;
 		return (
 			<View style={{flex:1}}>
 				<TouchableHighlight
@@ -129,6 +131,9 @@ class TreeMenuItem extends Component {
 						{this.props.menuItemSettings.itemShowIcon && menuItemObject.icon && (
 							this.selectIconFamily(menuItemObject.icon)
 						)}
+						{this.props.menuItemSettings.itemShowIcon && !menuItemObject.icon && (
+							<Text style={{marginLeft: 3, marginRight: 3}}>{defaultIcon}</Text>
+						)}
 
 						<View style={{flex: 1}}>
 							{
@@ -139,9 +144,8 @@ class TreeMenuItem extends Component {
 						{/* Show dropdown button or not? */}
 						{this.props.showDropDownButton && this.dropDownIconNames && this.dropDownIconNames.length === 2 && (
 							<TouchableHighlight
-								onPress={() => {
-									this.props.onOpenSubMenu(menuItemObject);
-								}}
+								style={{alignItems: 'center', backgroundColor: '#00000000', width: iconSize}}
+								onPress={() => { this.props.onOpenSubMenu(menuItemObject); }}
 								activeOpacity={0.5}
 								underlayColor="#00000000">
 								{
@@ -167,6 +171,7 @@ class TreeMenuItem extends Component {
 
 TreeMenuItem.defaultProps = {
 	showDropDownButton: true,
+	useCustomItemContentRenderer: false,
 	showSumMenu: true,
 	openSubMenu: true,
 	indents: 0,

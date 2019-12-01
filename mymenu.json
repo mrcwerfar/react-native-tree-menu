@@ -1,7 +1,7 @@
 {
   "vectorIconsFamily": "Ionicons",
-  "openMenuItemIcon": "",
-  "closeMenuItemIcon": "",
+  "openMenuItemIcon": "ios-arrow-back",
+  "closeMenuItemIcon": "ios-arrow-down",
   "menu":
   [
     {
@@ -106,7 +106,7 @@
       ]
     },
     {
-      "id": "id_finger_print",
+      "id": "id_print",
       "icon": "ios-rocket",
       "name": "Print",
       "subItems": [
