@@ -25,19 +25,50 @@ class TreeMenuCustomItemContent extends Component {
 	render() {
 		let menuItemObject = this.props.menuItemObject;
 		if (menuItemObject) {
-			return (
-				<View style={{backgroundColor: '#AAAAAA', height: 150, justifyContent: 'center'}}>
-					<Text
-						style={{
-							textAlign: 'center'
-						}}
-						allowFontScaling={true}>
-						Custom renderer: {menuItemObject.name}
-					</Text>
-				</View>
-			);
+			switch (menuItemObject.id) {
+			case 'id_analytics':
+				return (
+					<View style={{backgroundColor: '#0E9A90', height: 150, justifyContent: 'center'}}>
+						<Text
+							style={{
+								textAlign: 'center'
+							}}
+							allowFontScaling={true}>
+							Custom renderer: {menuItemObject.name}
+						</Text>
+						<Image >
+
+						</Image>
+					</View>
+				);
+			case 'id_color_scheme':
+				return (
+					<View style={{backgroundColor: '#DA07FE', height: 120, justifyContent: 'center'}}>
+						<Text
+							style={{
+								textAlign: 'center'
+							}}
+							allowFontScaling={true}>
+							Custom renderer: {menuItemObject.name}
+						</Text>
+					</View>
+				);
+			default:
+				return (
+					<View style={{backgroundColor: '#AAAAAA', height: 140, justifyContent: 'center'}}>
+						<Text
+							style={{
+								textAlign: 'center'
+							}}
+							allowFontScaling={true}>
+							Custom renderer: {menuItemObject.name}
+						</Text>
+					</View>
+				);
+			}
+
 		} else
-			return <View/>;
+			return (<View><Text>Custom item content</Text></View>);
 	}
 }
 
