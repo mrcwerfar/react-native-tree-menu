@@ -90,7 +90,7 @@ class TreeMenuItem extends Component {
 			return (<TreeMenuCustomItemContent menuItemObject={menuItemObject}></TreeMenuCustomItemContent>);
 		} else {
 			return (
-				<View style={{backgroundColor: '#FD0E98'}}>
+				<View>
 					<Text
 						style={this.props.menuItemSettings.itemTextStyle}
 						allowFontScaling={true}>
