@@ -6,7 +6,7 @@
   [
     {
       "id": "id_new_session",
-      "icon": "ios-american-football",
+      "icon": "ios-create",
       "name": "New Session",
       "subItems": [
         {

@@ -63,7 +63,7 @@ class App extends Component {
 				marginRight: 4,
 				borderRadius: 3,
 			},
-			itemShowIcon: true,
+			itemShowIcon: false,
 			itemIconSize: 40,
 			itemIconColor: '#AAA',
 			itemOpenCloseIconColor: '#000',
@@ -93,7 +93,7 @@ class App extends Component {
 							menuItemSettings={menuItemSettings}
 							itemClickHandler = {(menuItemObject) => { this.onMenuItemClick(menuItemObject); }}
 							itemOpenCloseHandler = {(menuItemObject, open) => { this.itemOpenCloseHandler(menuItemObject, open); }}
-							useCustomItemContentRenderer = {false}
+							useCustomItemContentRenderer = {true}
 						/>
 					</ScrollView>
 				</SafeAreaView>

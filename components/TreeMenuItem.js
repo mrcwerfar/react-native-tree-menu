@@ -119,8 +119,10 @@ class TreeMenuItem extends Component {
 					value={menuItemObject.id}
 					underlayColor="#00000000"
 					onPress={() => {
-						if (menuItemObject.onClick !== undefined) {
+						if (menuItemObject.onClick !== undefined && menuItemObject.subItems && menuItemObject.subItems.length>0 ) {
 							menuItemObject.onClick(menuItemObject);
+						} else {
+							this.props.onOpenSubMenu(menuItemObject);
 						}
 					}}>
 					<View

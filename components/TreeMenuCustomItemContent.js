@@ -22,27 +22,29 @@ class TreeMenuCustomItemContent extends Component {
 		super(props, context);
 	}
 
-	renderDemoItem(menuItemObject, color, r) {
+	renderDemoItem(menuItemObject, color, img, drawImage) {
 		let style = {alignItems: 'center', justifyContent: 'center'};
 		return (
 			<View style={[style, {backgroundColor: color}]}>
 				<Text
+					style={{fontSize: 25, fontWeight: 'bold', marginTop: 10}}
 					allowFontScaling={true}>
-					Custom renderer: {menuItemObject.name}
+					{menuItemObject.name}
 				</Text>
-				<Image
-					style={{
-						marginLeft: 0,
-						marginRight: 0,
-						marginTop: 20,
-						marginBottom: 20,
-						borderRadius: 0,
-						padding: 0,
-						height: 70,
-						width: 70
-					}}
-					resizeMode='cover'
-					source={r}/>
+				{drawImage && (
+					<Image
+						style={{
+							marginLeft: 0,
+							marginRight: 0,
+							marginTop: 20,
+							marginBottom: 20,
+							borderRadius: 0,
+							padding: 0,
+							height: 70,
+							width: 70
+						}}
+						resizeMode='cover'
+						source={img}/>)}
 			</View>
 		);
 	}
@@ -52,16 +54,16 @@ class TreeMenuCustomItemContent extends Component {
 
 		if (menuItemObject) {
 			switch (menuItemObject.id) {
-			case 'id_analytics':
-				return this.renderDemoItem(menuItemObject, '#09A509', require('../images/icons8-detective.png'));
-			case 'id_color_scheme':
-				return this.renderDemoItem(menuItemObject, '#DA07FE', require('../images/icons8-play.png'));
-			case 'id_finger_print':
-				return this.renderDemoItem(menuItemObject, '#09FEFE', require('../images/icons8-deadlift.png'));
-			case 'id_print':
-				return this.renderDemoItem(menuItemObject, '#dee204', require('../images/icons8-weight_2.png'));
+			case 'id_new_session':
+				return this.renderDemoItem(menuItemObject, '#09A509', require('../images/icons8-treadmill.png'), true);
+			case 'id_activity':
+				return this.renderDemoItem(menuItemObject, '#DA07FE', require('../images/icons8-graph.png'), true);
+			case 'id_programs':
+				return this.renderDemoItem(menuItemObject, '#09FEFE', require('../images/icons8-report_card.png'), true);
+			case 'id_exercises':
+				return this.renderDemoItem(menuItemObject, '#dee204', require('../images/icons8-acrobatics.png'), true);
 			default:
-				return this.renderDemoItem(menuItemObject, '#E0E0E0', require('../images/icons8-sleeping_in_bed.png'));
+				return this.renderDemoItem(menuItemObject, '#E0E0E0', require('../images/icons8-play.png'), true);
 			}
 		} else
 			return (<View><Text>Custom item content</Text></View>);
