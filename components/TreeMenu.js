@@ -104,7 +104,17 @@ class TreeMenu extends Component {
 						}
 					};
 				}
-				//let useCustomItemContentRenderer = this.props.useCustomItemContentRenderer?this.props.useCustomItemContentRenderer:undefined;
+				//NB! Create copy of this.props.menuItemSettings:
+				let currentMenuItemSettings = JSON.parse(JSON.stringify(this.props.menuItemSettings));
+				let customItemSettings = menuItemObject.menuItemSettings;
+				if (customItemSettings) {
+					// Update currentMenuSettings with item-spesific value:
+					Object.keys(customItemSettings).forEach((key, idx) => {
+						let customVal = customItemSettings[key];
+						currentMenuItemSettings[key] = customVal;
+					});
+				}
+
 				returnValue.push(
 					<View
 						key={key++}
@@ -113,7 +123,7 @@ class TreeMenu extends Component {
 						<TreeMenuItem
 							menuItemObject={menuItemObject}
 							vectorIconsFamily={this.props.menuData.vectorIconsFamily?this.props.menuData.vectorIconsFamily:'Ionicons'}
-							menuItemSettings={this.props.menuItemSettings}
+							menuItemSettings={currentMenuItemSettings}
 							indents={level}
 							openSubMenu={menuItemObject.openSubMenu?menuItemObject.openSubMenu: false}
 							showDropDownButton={showDropDownButton}
@@ -176,7 +186,7 @@ TreeMenu.defaultProps = {
 	menuItemSettings: {
 		closeOthersOnOpen: false,
 		itemIconOnLeft: true,
-		itemOpenCloseIconRight: false,
+		itemOpenCloseIcon: 'right',
 		itemTextStyle: {
 			fontSize: 18,
 			color:'#000000',

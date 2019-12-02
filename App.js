@@ -47,8 +47,7 @@ class App extends Component {
 		let menuItemSettings = {
 			closeOthersOnOpen: true,
 			defaultIcon: '\u25b6',  // '\u25E6', '\u25cf',
-			itemIconOnLeft: true,
-			itemOpenCloseIconRight: false,
+			itemOpenCloseIcon: 'right',
 			itemTextStyle: {
 				fontSize: 18,
 				color:'#000000',
@@ -63,7 +62,7 @@ class App extends Component {
 				marginRight: 4,
 				borderRadius: 3,
 			},
-			itemShowIcon: false,
+			itemShowIcon: true,
 			itemIconSize: 40,
 			itemIconColor: '#AAA',
 			itemOpenCloseIconColor: '#000',
@@ -93,7 +92,7 @@ class App extends Component {
 							menuItemSettings={menuItemSettings}
 							itemClickHandler = {(menuItemObject) => { this.onMenuItemClick(menuItemObject); }}
 							itemOpenCloseHandler = {(menuItemObject, open) => { this.itemOpenCloseHandler(menuItemObject, open); }}
-							useCustomItemContentRenderer = {true}
+							useCustomItemContentRenderer = {false}
 						/>
 					</ScrollView>
 				</SafeAreaView>

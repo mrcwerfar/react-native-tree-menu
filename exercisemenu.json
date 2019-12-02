@@ -8,6 +8,23 @@
       "id": "id_new_session",
       "icon": "ios-create",
       "name": "New Session",
+      "menuItemSettings": {
+        "itemShowIcon": true,
+        "itemTextStyle": {
+          "fontSize": 32,
+          "color":"#0000E5",
+          "textAlign": "left",
+          "marginLeft": 0
+        },
+        "itemStyle": {
+          "backgroundColor": "#E000E0",
+          "marginBottom": 0,
+          "marginTop": 0,
+          "marginLeft": 4,
+          "marginRight": 4,
+          "borderRadius": 3,
+        }
+      },
       "subItems": [
         {
           "id": "id_new_session_find_program",

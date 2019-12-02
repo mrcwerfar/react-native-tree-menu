@@ -132,7 +132,20 @@ class TreeMenuItem extends Component {
 							flex: 1,
 							alignItems: 'center'
 						}}>
-						{/* Show menu item IconIO or not? */}
+						{/* Show dropdown button or not on LEFT side? */}
+						{this.props.showDropDownButton && this.dropDownIconNames && this.dropDownIconNames.length === 2 && this.props.menuItemSettings.itemOpenCloseIcon === 'left' && (
+							<TouchableHighlight
+								style={{alignItems: 'center', width: iconSize}}
+								onPress={() => { this.props.onOpenSubMenu(menuItemObject); }}
+								activeOpacity={0.5}
+								underlayColor="#00000000">
+								{
+									this.selectIconFamily(this.dropDownIconNames[iconIndex], itemOpenCloseIconColor)
+								}
+							</TouchableHighlight>
+						)}
+
+						{/* Show menu item Icon or not? NB! ONLY SHOWN WHEN openclose icon on right side: */}
 						{this.props.menuItemSettings.itemShowIcon && menuItemObject.icon && (
 							<View style={{width: iconSize+initLeftMargin+rightMargin}}>
 								{
@@ -149,8 +162,8 @@ class TreeMenuItem extends Component {
 							}
 						</View>
 
-						{/* Show dropdown button or not? */}
-						{this.props.showDropDownButton && this.dropDownIconNames && this.dropDownIconNames.length === 2 && (
+						{/* Show dropdown button or not on RIGHT side? */}
+						{this.props.showDropDownButton && this.dropDownIconNames && this.dropDownIconNames.length === 2 && this.props.menuItemSettings.itemOpenCloseIcon === 'right' && (
 							<TouchableHighlight
 								style={{alignItems: 'center', width: iconSize}}
 								onPress={() => { this.props.onOpenSubMenu(menuItemObject); }}
@@ -161,6 +174,8 @@ class TreeMenuItem extends Component {
 								}
 							</TouchableHighlight>
 						)}
+
+						{/* Show openclose icon on RIGHT side?*/}
 						{!(this.props.showDropDownButton && this.dropDownIconNames && this.dropDownIconNames.length === 2) && (
 							<View style={{alignItems: 'center', width: iconSize}}/>
 						)}
