@@ -18,8 +18,8 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import TreeMenu from '../components/TreeMenu';
-import menuData from '../exercisemenu.json';
 import SessionScreen from './SessionScreen';
+//import menuData from '../exercisemenu.json';  //ES6
 
 class App extends Component {
 	constructor(props, context) {
@@ -69,6 +69,8 @@ class App extends Component {
 	}
 
 	render() {
+		const menuData = require('../exercisemenu.json');
+
 		let menuItemSettings = {
 			closeOthersOnOpen: true,
 			defaultIcon: '\u25b6',  // '\u25E6', '\u25cf',
