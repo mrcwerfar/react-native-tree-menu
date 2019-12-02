@@ -78,13 +78,19 @@
             {
               "id": "id_activity_select_program1",
               "icon": "ios-bicycle",
-              "name": "Show Bicycling",
+              "name": "Bicycling",
               "subItems": []
             },
             {
               "id": "id_activity_select_program2",
               "icon": "ios-body",
-              "name": "Show Body Workout",
+              "name": "Body Workout",
+              "subItems": []
+            },
+            {
+              "id": "id_activity_select_program3",
+              "icon": "ios-walk",
+              "name": "Hiking",
               "subItems": []
             }
           ]

@@ -103,7 +103,7 @@ class TreeMenuItem extends Component {
 	renderItem(menuItemObject) {
 		let defaultIcon = this.props.menuItemSettings.defaultIcon?this.props.menuItemSettings.defaultIcon:'\u25A3';
 		let iconIndex = menuItemObject.openSubMenu === true ? 1 : 0;
-		let indentValue = this.props.menuItemSettings.itemIndentValue?this.props.menuItemSettings.itemIndentValue:35;
+		let indentValue = this.props.menuItemSettings.itemIndentValue||this.props.menuItemSettings.itemIndentValue===0?this.props.menuItemSettings.itemIndentValue:35;
 		let iconSize = this.props.menuItemSettings.itemIconSize ? this.props.menuItemSettings.itemIconSize : 35;
 		let initLeftMargin = this.props.menuItemSettings.itemStyle.marginLeft?this.props.menuItemSettings.itemStyle.marginLeft:0;
 		let rightMargin = this.props.menuItemSettings.itemStyle.marginRight?this.props.menuItemSettings.itemStyle.marginRight:0;
@@ -120,6 +120,7 @@ class TreeMenuItem extends Component {
 					underlayColor="#00000000"
 					onPress={() => {
 						if (menuItemObject.onClick !== undefined && menuItemObject.subItems && menuItemObject.subItems.length>0 ) {
+							menuItemObject.onClick(menuItemObject);
 							this.props.onOpenSubMenu(menuItemObject);
 						} else {
 							menuItemObject.onClick(menuItemObject);

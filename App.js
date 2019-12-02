@@ -45,7 +45,7 @@ class App extends Component {
 
 	render() {
 		let menuItemSettings = {
-			closeOthersOnOpen: true,
+			closeOthersOnOpen: false,
 			defaultIcon: '\u25b6',  // '\u25E6', '\u25cf',
 			itemOpenCloseIcon: 'right',
 			itemTextStyle: {
