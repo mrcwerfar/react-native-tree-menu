@@ -79,6 +79,32 @@ class TreeMenu extends Component {
 		);
 	}
 
+	// Update currentMenuSettings with item-spesific value recursively:
+	updateWithCustomSettings(customObject, currentObject) {
+		Object.keys(customObject).forEach((key, idx) => {
+			let customProp = customObject[key];
+			// if (Object.keys(customProp) !== undefined && Object.keys(customProp).length > 0) {
+			if (typeof customProp === 'object' && customProp !== null) {
+				let currentObjSettings = currentObject[key];
+				this.updateWithCustomSettings(customProp, currentObjSettings);
+			} else {
+				currentObject[key] = customProp;
+			}
+		});
+
+		/*
+		Object.keys(customObject).forEach((key, idx) => {
+			let customObjectProperty = customObject[key];
+			if (Object.keys[customObjectProperty] !== undefined && Object.keys[customObjectProperty].length() > 0) {
+				let currentObjSettings = customObjectProperty;
+				this.updateWithCustomSettings(customObjectProperty, currentObjSettings);
+			} else {
+				currentObject[key] = customObjectProperty;
+			}
+		});
+		 */
+	}
+
 	renderMenu(level, key, menuObjects) {
 		let returnValue = [];
 		if (menuObjects !== undefined && menuObjects.length > 0) {
@@ -109,10 +135,13 @@ class TreeMenu extends Component {
 				let customItemSettings = menuItemObject.menuItemSettings;
 				if (customItemSettings) {
 					// Update currentMenuSettings with item-spesific value:
+					this.updateWithCustomSettings(customItemSettings, currentMenuItemSettings);
+					/*
 					Object.keys(customItemSettings).forEach((key, idx) => {
 						let customVal = customItemSettings[key];
 						currentMenuItemSettings[key] = customVal;
 					});
+					 */
 				}
 
 				returnValue.push(

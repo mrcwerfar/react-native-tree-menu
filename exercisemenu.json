@@ -11,10 +11,7 @@
       "menuItemSettings": {
         "itemShowIcon": true,
         "itemTextStyle": {
-          "fontSize": 32,
-          "color":"#0000E5",
-          "textAlign": "left",
-          "marginLeft": 0
+          "color":"#0000E5"
         },
         "itemStyle": {
           "backgroundColor": "#E000E0",
