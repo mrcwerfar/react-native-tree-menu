@@ -17,24 +17,49 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import TreeMenu from './components/TreeMenu';
-import menuData from './exercisemenu.json';
+import TreeMenu from '../components/TreeMenu';
+import menuData from '../exercisemenu.json';
+import SessionScreen from './SessionScreen';
 
 class App extends Component {
 	constructor(props, context) {
 		super(props, context);
+
+		this.state = {
+			renderSessionScreen: false,
+			renderProgramScreen: false,
+		};
+	}
+
+	renderSessionScreen() {
+		return (
+			<View style={{flex: 1, marginTop: 0}} onLayout={(event) => this.onLayout(event)}>
+				<SessionScreen/>
+			</View>
+		);
 	}
 
 	onMenuItemClick(menuItem) {
 		switch (menuItem.id) {
-		case 'id_analytics':
+		case 'id_new_session':
 			console.log('CLICK:' + menuItem.name);
+			// Show SessionScreen:
+			this.setState({
+				renderSessionScreen: true
+			});
+
+			// In case of stack navigation:
+			//this.props.navigation.navigate('NewSessionScreen');
 			break;
-		case 'id_color_scheme':
+		case 'id_activity':
 			console.log('CLICK:' + menuItem.name);
+			// In case of stack navigation:
+			//this.props.navigation.navigate('ActivityScreen');
 			break;
-		case 'id_finger_print':
+		case 'id_programs':
 			console.log('CLICK:' + menuItem.name);
+			// In case of stack navigation:
+			//this.props.navigation.navigate('ProgramsScreen');
 			break;
 		}
 	}
@@ -45,7 +70,7 @@ class App extends Component {
 
 	render() {
 		let menuItemSettings = {
-			closeOthersOnOpen: false,
+			closeOthersOnOpen: true,
 			defaultIcon: '\u25b6',  // '\u25E6', '\u25cf',
 			itemOpenCloseIcon: 'right',
 			itemTextStyle: {
@@ -77,27 +102,35 @@ class App extends Component {
 			itemIndentValue: 40
 		};
 
-		return (
-			<View style={{flex: 1}}>
-				<StatusBar barStyle="dark-content" />
-				<SafeAreaView>
-					<ScrollView
-						contentInsetAdjustmentBehavior="automatic"
-						style={styles.scrollView}>
-						<Text style={{fontSize: 30, textAlign: 'center', margin: 10}}>
-							My Screen Menu
-						</Text>
-						<TreeMenu
-							menuData={menuData}
-							menuItemSettings={menuItemSettings}
-							itemClickHandler = {(menuItemObject) => { this.onMenuItemClick(menuItemObject); }}
-							itemOpenCloseHandler = {(menuItemObject, open) => { this.itemOpenCloseHandler(menuItemObject, open); }}
-							useCustomItemContentRenderer = {false}
-						/>
-					</ScrollView>
-				</SafeAreaView>
-			</View>
-		);
+		if (this.state.renderSessionScreen===true) {
+			return this.renderSessionScreen();
+		} else {
+			return (
+				<View style={{flex: 1}}>
+					<StatusBar barStyle="dark-content"/>
+					<SafeAreaView>
+						<ScrollView
+							contentInsetAdjustmentBehavior="automatic"
+							style={styles.scrollView}>
+							<Text style={{fontSize: 30, textAlign: 'center', margin: 10}}>
+								My Screen Menu
+							</Text>
+							<TreeMenu
+								menuData={menuData}
+								menuItemSettings={menuItemSettings}
+								itemClickHandler={(menuItemObject) => {
+									this.onMenuItemClick(menuItemObject);
+								}}
+								itemOpenCloseHandler={(menuItemObject, open) => {
+									this.itemOpenCloseHandler(menuItemObject, open);
+								}}
+								useCustomItemContentRenderer={false}
+							/>
+						</ScrollView>
+					</SafeAreaView>
+				</View>
+			);
+		}
 	}
 }
 
