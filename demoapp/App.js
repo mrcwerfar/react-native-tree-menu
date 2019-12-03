@@ -27,6 +27,7 @@ class App extends Component {
 
 		this.state = {
 			renderSessionScreen: false,
+			renderActivityScreen: false,
 			renderProgramScreen: false,
 		};
 	}
@@ -53,11 +54,17 @@ class App extends Component {
 			break;
 		case 'id_activity':
 			console.log('CLICK:' + menuItem.name);
+			this.setState({
+				renderActivityScreen: true
+			});
 			// In case of stack navigation:
 			//this.props.navigation.navigate('ActivityScreen');
 			break;
 		case 'id_programs':
 			console.log('CLICK:' + menuItem.name);
+			this.setState({
+				renderProgramScreen: true
+			});
 			// In case of stack navigation:
 			//this.props.navigation.navigate('ProgramsScreen');
 			break;
@@ -69,14 +76,15 @@ class App extends Component {
 	}
 
 	render() {
+		// Get menu data:
 		const menuData = require('../exercisemenu.json');
-
+		// Generic menu item settings:
 		let menuItemSettings = {
 			closeOthersOnOpen: true,
 			defaultIcon: '\u25b6',  // '\u25E6', '\u25cf',
 			itemOpenCloseIcon: 'right',
 			itemTextStyle: {
-				fontSize: 18,
+				fontSize: 28,
 				color:'#000000',
 				textAlign: 'left',
 				marginLeft: 0

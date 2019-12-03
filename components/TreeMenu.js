@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {View} from 'react-native';
 import PropTypes from 'prop-types';
 import TreeMenuItem from './TreeMenuItem';
-import menuData from '../mymaterialmenu';
 
 /**
  * react-tree-screen-menu
@@ -83,7 +82,6 @@ class TreeMenu extends Component {
 	updateWithCustomSettings(customObject, currentObject) {
 		Object.keys(customObject).forEach((key, idx) => {
 			let customProp = customObject[key];
-			// if (Object.keys(customProp) !== undefined && Object.keys(customProp).length > 0) {
 			if (typeof customProp === 'object' && customProp !== null) {
 				let currentObjSettings = currentObject[key];
 				this.updateWithCustomSettings(customProp, currentObjSettings);
@@ -91,18 +89,6 @@ class TreeMenu extends Component {
 				currentObject[key] = customProp;
 			}
 		});
-
-		/*
-		Object.keys(customObject).forEach((key, idx) => {
-			let customObjectProperty = customObject[key];
-			if (Object.keys[customObjectProperty] !== undefined && Object.keys[customObjectProperty].length() > 0) {
-				let currentObjSettings = customObjectProperty;
-				this.updateWithCustomSettings(customObjectProperty, currentObjSettings);
-			} else {
-				currentObject[key] = customObjectProperty;
-			}
-		});
-		 */
 	}
 
 	renderMenu(level, key, menuObjects) {

@@ -10,17 +10,13 @@
       "name": "New Session",
       "menuItemSettings": {
         "itemShowIcon": true,
+        "itemIconColor": "#0A0",
         "itemTextStyle": {
-          "color":"#0000E5"
+          "color":"#00FF00"
         },
         "itemStyle": {
-          "backgroundColor": "#E000E0",
-          "marginBottom": 0,
-          "marginTop": 0,
-          "marginLeft": 4,
-          "marginRight": 4,
-          "borderRadius": 3,
-        }
+          "backgroundColor": "#A000E0",
+        },
       },
       "subItems": [
         {
